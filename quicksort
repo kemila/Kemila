@@ -1,0 +1,76 @@
+package zqtest20170322;
+
+import java.util.Scanner;
+
+public class quicksort
+{
+     int[] arry;
+     quicksort(int[] arry){
+         this.arry = arry;  
+     };
+     
+     int[] getarry(){
+         return this.arry;
+     }
+     
+     void quicksort_handler(int left,int right){
+        int i,j,BaseNumber,temp;
+        if(left>right)
+            return;
+        
+        BaseNumber =arry[left];
+        i=left;
+        j=right;
+        while(i!=j){
+            
+            while(arry[j]>BaseNumber&&i<j)
+                j--;
+            
+            while(arry[i]<=BaseNumber&&i<j)
+                i++;
+            
+            if(i<j){
+                temp = arry[i];
+                arry[i]= arry[j];
+                arry[j]=temp;
+            }
+
+            arry[left]= arry[i];
+            arry[i]= BaseNumber;
+            
+            quicksort_handler(left,i-1);
+            quicksort_handler(i+1,right);
+       
+        }
+    }
+    
+    
+    
+    public static void main(String[] args)
+    {
+        int length = 0;
+        System.out.println("数组长度:");
+        @SuppressWarnings("resource")
+        Scanner scanner = new Scanner(System.in);
+        length = scanner.nextInt();
+        
+        int[] arry = new int[length];
+        
+        for(int i = 0; i < arry.length; i++) {
+
+            System.out.print("输入"+i+":");
+
+            int input = scanner.nextInt();
+
+            arry[i] = input;
+
+        }
+        
+        quicksort q =new quicksort(arry);
+        q.quicksort_handler(1,arry.length-1);
+        int[] sorted_arry =q.getarry();
+        for(int i=0;i<sorted_arry.length;i++){
+            System.out.println(sorted_arry[i]);
+        }
+    }
+}
