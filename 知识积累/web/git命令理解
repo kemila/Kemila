@@ -33,3 +33,7 @@ git reset --soft id. 实际上，是git reset –mixed id 后,又做了一次git
 git reset --hard id.是将git的HEAD变了,文件也变了.
 按改动范围排序如下:
 soft (commit) < mixed (commit + add) < hard (commit + add + local working)
+
+HEAD 指向版本库的当前版本;HEAD值和最新commit 的ID是一样一样的;HEAD就是指向最新的一次commit;
+git reflog 展示HEAD变化
+
