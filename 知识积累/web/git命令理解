@@ -18,3 +18,18 @@ git commit 一般加 -m "巴拉巴拉"的描述内容;
 git push + origin *** 推送到对应分支 
 
 这是很顺利的流程,网上的git都是根据命令来教怎么用,对于我这种菜鸟还是很难理解的;
+
+
+常用命令:
+git log 查看 commit记录   --oneline 一条显示  --number  显示条数
+
+git diff 
+
+git commit --amend 增补提交. 会使用与当前提交节点相同的父节点进行一次新的提交,旧的提交将会被取消.
+
+当add或者commit错了,可以用reset重置
+git reset --mixed id,是将git的HEAD变了(也就是提交记录变了),但文件并没有改变，(也就是working tree并没有改变). 取消了commit和add的内容.
+git reset --soft id. 实际上，是git reset –mixed id 后,又做了一次git add.即取消了commit的内容.
+git reset --hard id.是将git的HEAD变了,文件也变了.
+按改动范围排序如下:
+soft (commit) < mixed (commit + add) < hard (commit + add + local working)
