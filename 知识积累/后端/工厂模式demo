@@ -1,0 +1,47 @@
+//抽象类
+public interface Icar{
+           public void docar();
+}
+ //抽象子类
+public class bwm implements Icar{
+          public void docar(){
+               System.out.println("我是宝马，别摸我");
+          }
+}
+  //抽象子类
+public class buick implements Icar{
+          public void docar(){
+               System.out.println("我是别克，很酷");
+          }
+}
+ 
+ //工厂抽象类
+public interface Icarfactory{
+          public Icar createCar();
+} 
+ //工厂子类
+public class bmwFactory implements Icarfactory{
+          public Icar createCar(){
+                   return new bwm();
+          }
+} 
+ //工厂子类
+public class buickFactory implements Icarfactory{
+          public Icar createCar(){
+                   return new buick();
+          }
+} 
+ 
+ 
+public class test{
+      public static void main(String []args){
+           Icarfactory factory=new bmwFactory();
+           Icar bwm= factory.createCar(); 
+           bwm.docar();
+ 
+           factory=new buickFactory();
+           Icar buick= factory.createCar(); 
+           buick.docar();
+ 
+     }
+ }
