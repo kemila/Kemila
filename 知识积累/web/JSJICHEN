@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>JS继承方式</title>
+</head>
+
+<body>
+	<script>
+		//子类的原型对象--类式继承
+		//父类构造
+		function SuperClass() {
+			this.superValue = true;
+			this.books = ["java", "c", "c++"]
+		};
+		//父类原型方法
+		SuperClass.prototype.getSuperValue = function() {
+			return this.superValue;
+		};
+		//子类构造
+		function SubClass() {
+			this.subValue = false;
+		}
+
+		//原型继承 将父类的实例赋值给子类的 原型对象
+		SubClass.prototype = new SuperClass();
+		//子类自己的原型方法
+		SubClass.prototype.geSubValue = function() {
+			return this.subValue
+		}
+
+		//测试
+		var instance1 = new SubClass();
+		var instance2 = new SubClass();
+		console.log(instance1.geSubValue());
+		console.log(instance1.getSuperValue());
+		console.log(instance2.books);
+		instance1.books.push("设计模式");
+		console.log(instance2.books);
+
+		//缺点:引用类型继承 子类互相影响 ;   SubClass.prototype = new SuperClass(); 
+		//依赖父类实例 无法对父类构造函数内部值初始化 无法初始修改 superValue books内容
+	</script>
+</body>
+
+</html>
