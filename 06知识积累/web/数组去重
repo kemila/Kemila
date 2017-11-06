@@ -1,0 +1,10 @@
+http://es6.ruanyifeng.com/#docs/set-map 转阮一峰ES6
+
+前端做了半年,才发现前端也能用SET MAP 这两种数据结构,ES6特性;
+
+利用SET 不可重复性进行数组去重:
+
+// 去除数组的重复成员
+[...new Set(array)]
+
+一行代码 , 吊的不行

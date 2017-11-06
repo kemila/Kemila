@@ -1,0 +1,47 @@
+
+
+
+function Ipv4Validator(ip){
+	//保证xxx.xxx.xxx.xxx数字的格式
+	var Ip4Reg = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+	if(Ip4Reg.test(ip)){
+		
+		if(IsFirstZero(ip)){
+			false;
+		}
+		if(HasZeroRule(ip)){
+			false;
+		}
+		
+		return true;
+	}else{
+		return false
+	}
+}
+//选用功能:
+
+//判断开头是否为0
+function IsFirstZero(ip){
+		return (parseInt(ip.split(".")[0],10)==0)?true:false;
+}
+//去除00X格式的IP 002.00.50.0 =>2.0.5.0
+function DelZeroRule(ip){
+	var arr = ip.split(".");
+	for(var i =0 ;i<arr[i].length;i++){
+		arr[i] = parseInt(arr[i],10);
+	}
+	return arr.join(".");
+}
+//判断是否有00X格式的IP
+function HasZeroRule(ip){
+	var arr = ip.split(".");
+	for(var i =0 ;i<arr[i].length;i++){
+		if(arr[i].length>1){
+			if(arr[i].charAt("0")==0){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+

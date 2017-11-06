@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>BOOK自执行闭包函数</title>
+</head>
+<body>
+	<script>
+	 //自执行BOOK
+	 //静态 只有一个,非静态 实例化的每个实例都有一份;私有表示外部不能直接访问的变量,只能用方法访问
+	 var Book = (function(){
+		 console.log("windows:",this);
+		 //静态私有变量
+		 var bookNum=0;
+		 //静态私有方法
+		 function checkBook(name){
+			console.log("i am 静态私有方法checkBook")
+		 }
+		 //创建类 使用_ 表示对象私有 习惯问题
+		 function _book(newId,newName,newPrice){
+			 console.log("_book",this);
+			 //私有变量
+			 var name ,price;
+			 //私有方法
+			 function checkID(id){
+				 console.log("i am 私有方法checkID")
+			 };
+			 
+			 //特权方法 (个人理解就是每个实例可以使用的共有方法)
+			 this.getName = function(){return this.name};
+			 this.getPrice = function(){return this.price};
+			 this.setName = function(name){this.name = name};
+			 this.setPrice = function(price){this.price = price};
+			 
+			 //公有属性
+			 this.id = newId;
+			 
+			 //公有方法
+			 this.copy =function(){
+				  console.log("i am 公有方法copy")
+			 };
+			 
+			 bookNum++;
+			 if(bookNum>3){
+				 throw new Error("超出三本了");
+			 }
+			 this.setName(name);
+			 this.setPrice(price);
+		 }
+		 
+		 //原型构建
+		 _book.prototype={
+			 //静态公有属性
+			 isJSBook :false,
+			 //静态公有方法
+			 display:function(){
+				  console.log("i am display")
+			 }
+		 }
+		 //返回的是_book这个function()
+		 return _book;
+	 })();
+		
+		
+		
+		//控制台测试  需要用new 关键词来创建对象
+	</script>
+</body>
+</html>

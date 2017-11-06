@@ -1,0 +1,29 @@
+变量过深用 [] . undefined会报错
+var A = {
+  common:{},
+  client:{
+    user:{
+      username:"zq",
+      uid:"1"
+    }
+  },
+  server:{}
+}
+
+AGetter = function(key){
+  if(!A)return undefined;
+  
+  var result =A;
+  
+  key = key.split('.');
+  for(var i=0,len = key.length; i<len;i++){
+    if(result[key[i]]!==undefined){
+      result = result[key[i]];
+    }else{
+      return undefined;
+    }
+  }
+  return result;
+}
+
+AGetter('client.user.username')// 以这种方式取值 可以防止浏览器爆红 不需要try catch捕捉异常

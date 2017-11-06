@@ -1,0 +1,17 @@
+在项目调试过程中,取得后端数据JOSN.
+但由于后端返回值不规范,比如对象o{a:{2},b:{3}},当后端觉得不需要b值时,有人返回null,有人返回"",还有的直接不返回b属性值;
+而经常使用的JOSN对象嵌套层数很多,如果要正确得接受对象就显得非常麻烦,要对每个值,每一步作判空,校验.
+更严重的是,当发生多层结构比如{a:{b:{c:{1}}}},我们取c值 经常回用 var c = a.b.c 这种方法,或者[]查找属性,当后台再b层不返回时,
+我们在a.b得到undefined,undefined.c这种形式,页面就会报错,控制台爆红,这样下面的代码就不会被执行,这是我不想看到的.
+之前我写java 有try catch 的捕获机制,现在js中同样可以使用try catch
+function(){
+        var ports={b:1};
+        try {
+					console.log(ports.a.a);
+				}catch(e){
+					console.log("catch e!!!",e);
+				}
+				console.log("next");
+}
+    如上,当不使用try catch时  console.log("next") next不会输出
+    而try catch 捕获异常之后就不会影响后续操作

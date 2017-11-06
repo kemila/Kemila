@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>demo</title>
+</head>
+
+<body>
+	<script>
+		var Waiter = function() {
+			var dfd = [],
+				doneArr = [],
+				failArr = [],
+				slice = Array.prototype.slice,
+				that = this;
+
+			var Primise = function() {
+				//这边 this已经发生改变
+				this.resolved = false;
+
+				this.rejected = false;
+			}
+
+			Primise.prototype = {
+				resolve: function() {
+					this.rejected = true;
+
+					if (!dfd.length) {
+						return
+					}
+					for (var i = dfd.length - 1; i >= 0; i--) {
+						//						任意一个失败
+						if (dfd[i] && !dfd[i].resolved || dfd[i].rejected) {
+							return
+						}
+						dfd.splice(i, 1);
+					}
+					_excec(doneArr);
+				},
+				reject: function() {
+					this.rejected = true;
+					if (!dfd.length) {
+						return
+					}
+					dif.splice(0);
+					_excec(doneArr);
+				}
+			}
+
+			that.Deferred = function() {
+				return new Primise();
+			}
+
+			function _excec(arr) {
+				var i = 0,
+					len = arr.length;
+				for (; i < len; i++) {
+					try {
+						arr[i] && arr[i]();
+					} catch (e) {
+
+					}
+				}
+			}
+			that.when = function() {
+				console.log("when",arguments);
+				dfd = slice.call(arguments);
+				var i = dfd.length;
+				for (--i; i >= 0; i--) {
+					console.log("i=",i);
+					if (!dfd[i] || dfd[i].resolved || dfd[i].rejected || !dfd[i] instanceof Primise)
+						dfd.splice(i, 1);
+				}
+				return that;
+			}
+			that.done = function() {
+				//为什么用slice 个人认为是 arguments中传的是函数 是引用传递
+				doneArr = doneArr.concat(slice.call(arguments));
+				console.log("done", arguments);
+				console.log("doneArr", doneArr);
+				return that;
+			}
+			that.fail = function() {
+
+				failArr = doneArr.concat(slice.call(arguments));
+				console.log("fail", arguments);
+				console.log("failArr", failArr);
+			}
+		}
+
+		var waiter = new Waiter();
+
+		var first = function() {
+			var dtd = waiter.Deferred();
+			setTimeout(function() {
+				console.log("first finish");
+				dtd.resolve();
+			}, 5000);
+			return dtd;
+		}();
+		var second = function() {
+			var dtd = waiter.Deferred();
+			setTimeout(function() {
+				console.log("second finish");
+				dtd.resolve();
+			}, 10000);
+			return dtd;
+		}();
+
+		waiter.when(first, second).done(
+			function() {
+				console.log("success111");
+			},
+			function() {
+				console.log("success222");
+			}).fail(function() {
+			console.log("fail");
+		})
+	</script>
+</body>
+
+</html>

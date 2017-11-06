@@ -1,0 +1,61 @@
+接触git之后,深深感到之前SVN代码提交的是多么简单,一步到位;
+个人实践理解:
+一.我们首先要有一个个人仓库(可以自己新建,也可以FORK别人)
+二.我们将个人仓库(或者别人仓库,如果别人给你开了权限的话)clone下来,就可以在自己电脑上尽情摧残我们的的库了.
+
+clone下来的东西,主要分三块,工作区,暂存区,版本库;网上有关系图;
+
+正常流程:
+
+本地修改文件->git status 查看差异->git add 添加修改文件到暂存区-> git commit 暂存区提交到版本库 ->git push 将版本库推到个人仓;
+
+git status 会展示 被标记和未被标记的有差异的内容(tracked untracked 标记 未标记 就是直接看文件下面有没有绿 红这种标记,个人理解,如果是新加文件,要ADD标记一下)
+
+git add   可以用 *.js 等通配符添加文件 或者全路径添加,暂时没遇到更好的方法;
+
+git commit 一般加 -m "巴拉巴拉"的描述内容;
+
+git push + origin *** 推送到对应分支 
+
+这是很顺利的流程,网上的git都是根据命令来教怎么用,对于我这种菜鸟还是很难理解的;
+
+
+常用命令:
+git log 查看 commit记录   --oneline 一条显示  --number  显示条数
+
+git diff 比较不同 
+
+git commit --amend 增补提交. 会使用与当前提交节点相同的父节点进行一次新的提交,旧的提交将会被取消.
+
+当add或者commit错了,可以用reset重置 git reset + ID或者HEAD内容 可以回到某个提交状态
+git reset --mixed id,是将git的HEAD变了(也就是提交记录变了),但文件并没有改变，(也就是working tree并没有改变). 取消了commit和add的内容.
+git reset --soft id. 实际上，是git reset –mixed id 后,又做了一次git add.即取消了commit的内容.
+git reset --hard id.是将git的HEAD变了,文件也变了.
+按改动范围排序如下:
+soft (commit) < mixed (commit + add) < hard (commit + add + local working)
+
+HEAD 指向版本库的当前版本;HEAD值和最新commit 的ID是一样一样的;HEAD就是指向最新的一次commit;
+git reflog 展示HEAD变化 是比较详细的操作日志
+
+git removte   
+remote 用于定义存储一个地址
+比如我项目用到两个仓 一个主仓A 一个我的FORK仓B
+我git clone B  后可以git remote add NAMEA A 将A地址放在NAMEA变量中
+git pull git push 什么的都可以指定 哪个仓的哪个分支,本地也有指定默认的分支
+弄了很久才明白,本地一个版本库仓,一个forkB 一个主仓A,一共有三个仓库...开始我的理解是两个仓库AB,本地仓库是一直要和fork仓同步的,当rebase A的时候
+我就混乱了,本地到底要和哪个仓同步了,其实本地仓就是本地,每次pull默认仓B的代码,就和B同步,我rebase A的时候 就把A上的新改动拉下来做成一个新的提交点,
+这时候,本地库既是B的fork仓,也有A的新改动,也有我本地的修改,这次PUSH的时候就将这两部分改动一起推送到B仓,实现了将A仓的代码更新到B仓;
+在项目中原来的做法是 先将A仓的全部改动拉倒forkB,再pull到本地仓,可能会再PULL的过程中产生冲突,而且会有多余的merg记录.而用rebase的话在rebase过程中
+可能会有冲突,要解决后才能rebase.解决冲突由于vi不熟,更喜欢用比较工具,文本工具来解决修改,缺点是可能GIT跟踪不到
+
+git rebase
+顾名思义 以**为基础 比较不同 然后将不同拉倒本地
+git rebase A/master
+就是把本地代码以A MASTER分支为基准,删掉已有COMMIT,打包成一个补丁生成一个新的点;
+
+git branch -a 查看本地所有分支
+
+
+
+
+
