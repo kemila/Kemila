@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>demo</title>
+</head>
+
+<body>
+	<script>
+		//		函数柯里化
+		function curry(fn) {
+			var Slice = [].slice;
+			console.log("111arguments", arguments);
+			var args = Slice.call(arguments, 1);
+			console.log("222args", args);
+
+			return function() {
+
+				console.log("333arguments", arguments);
+
+				var addArgs = Slice.call(arguments),
+					allArgs = args.concat(addArgs);
+				
+				console.log("444addArgs", addArgs);
+				console.log("555allArgs", allArgs);
+
+				return fn.apply(null, allArgs);
+			}
+		}
+
+		function add(n1, n2) {
+			return n1 + n2;
+		}
+		function add5(num){
+			return add(5,num);
+		}
+		
+		console.log("::::", add(1,5));
+		console.log("::::", add5(5));
+		var add8 = curry(add,8);
+		console.log("::::", add8(5));
+	</script>
+</body>
+
+</html>
