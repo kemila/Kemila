@@ -10,6 +10,7 @@
 	<script>
 		//函数柯里化
 		// 作用:提高适用性 降低使用范围
+		//利用闭包可以把入参保存起来,到最后一一起调用
 		function curry(fn) {
 			var Slice = [].slice;
 			console.log("111arguments", arguments);
@@ -41,6 +42,20 @@
 		console.log("::::", add5(5));
 		var add8 = curry(add,8);
 		console.log("::::", add8(5));
+		
+// 		//延迟执行
+// 		var curry_delay = function(fn) {
+// 			//闭包保存入参
+//     			var _args = []
+// 		    return function cb() {
+// 				if (arguments.length == 0) {
+// 				    return fn.apply(this, _args)
+// 				}
+// 				Array.prototype.push.apply(_args, arguments);
+// 				return cb;
+// 			}
+// 		}
+		
 	</script>
 </body>
 
