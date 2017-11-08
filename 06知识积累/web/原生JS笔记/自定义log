@@ -1,0 +1,28 @@
+定义一个 log 方法，让它可以代理 console.log 方法，常见的解决方法是：
+
+
+function log(msg)　{
+  console.log(msg);
+}
+log(1);    //1
+log(1,2);    //1
+上面方法可以解决最基本的需求，但是当传入参数的个数是不确定的时候，上面的方法就失效了，这个时候就可以考虑使用 apply 或者 call，注意这里传入多少个参数是不确定的，所以使用apply是最好的，方法如下：
+
+
+function log(){
+  console.log.apply(console, arguments);
+};
+log(1);    //1
+log(1,2);    //1 2
+接下来的要求是给每一个 log 消息添加一个"(app)"的前辍，比如：
+
+log("hello world");    //(app)hello world
+该怎么做比较优雅呢?这个时候需要想到arguments参数是个伪数组，通过 Array.prototype.slice.call 转化为标准数组，再使用数组方法unshift，像这样：
+
+
+function log(){
+  var args = Array.prototype.slice.call(arguments);
+  args.unshift('(app)');
+ 
+  console.log.apply(console, args);
+};

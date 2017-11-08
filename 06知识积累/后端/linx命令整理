@@ -1,0 +1,6 @@
+vim shift+G(尾巴)  GG(头)
+:?XXX(从尾巴查找) /XXX(从头查找)
+
+ps -ef|grep 
+
+tailf
