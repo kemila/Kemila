@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>总结</title>
+	<style>
+		.test {
+			width: 200px;
+			height: 100px;
+			background-color: aquamarine;
+			margin-bottom: 50px;
+		}
+
+		.fixtest {
+			background-color: aquamarine;
+			/*			float: right;*/
+			width: 100px;
+			height: 1000px;
+			position: fixed
+		}
+
+		.test1 {
+			background-color: yellow;
+			margin-top: 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<!--
+		BFC 概念 块级格式化上下文   边界融合  距离为30px
+	 BFC布局规则：
+	内部的Box会在垂直方向，一个接一个地放置。
+	Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠
+	每个元素的margin box的左边， 与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。
+	BFC的区域不会与float box重叠。
+	BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。计算BFC的高度时，浮动元素也参与计算。
+    何时触发BFC：
+	根元素
+	float属性不为none
+	position为absolute或fixed
+	display为inline-block, table-cell, table-caption, flex, inline-flex
+	overflow不为visible
+-->
+	<!--	BFC 就是隔离子元素 成一个独立的行政区域，之间互不影响-->
+	<div class="test"></div>
+	<div class="test test1"></div>
+
+	<!--fix 使用-->
+	<div class="fixtest"></div>
+
+</body>
+
+<script>
+	var m = 9;
+
+	function demo() {
+		var m = 2;
+		console.log('this out', this === window);
+
+		function sun() {
+			console.log('m:', m);
+			console.log('this.m', this.m);
+			console.log('this in', this === window);
+		}
+		sun();
+	}
+	//	demo();
+
+	function demo1() {
+		var m = 2;
+		console.log('this out', this === window);
+
+		function sun() {
+			console.log('m:', m);
+			console.log('this.m', this.m);
+			console.log('this in', this === window);
+		}
+		return sun;
+	}
+	var obj = {
+		m: 0,
+		fn: demo1()
+	}
+	//	obj.fn()
+
+	function fn(num) {
+		console.log("fn: " + num);
+		// count用于记录fn的被调用次数
+		this.count++;
+	}
+	fn(1);
+	//this指的是window window.count
+
+	var Book = (function() {
+		console.log(this);
+		var that = this;
+
+		function _book(newName) {
+			this.name = newName
+			console.log(this);
+			console.log(that);
+		}
+		return _book;
+	})()
+	var boo = new Book()
+	//1. 创建空对象；
+	//　　var obj = {};
+	//
+	//2. 设置新对象的constructor属性为构造函数的名称，设置新对象的__proto__属性指向构造函数的prototype对象；
+	//　　obj.__proto__ = ClassA.prototype;
+	//
+	//3. 使用新对象调用函数，函数中的this被指向新实例对象：
+	//　　ClassA.call(obj);　　//{}.构造函数();          
+	//
+	//4. 将初始化完毕的新对象地址，保存到等号左边的变量中
+
+
+
+
+	//	深拷贝 初步版本 https://www.cnblogs.com/zfc2201/archive/2012/04/09/2439419.html
+	$ = {
+		extend: function(deep, target, options) {
+			for (name in options) {
+				copy = options[name];
+				if (deep && copy instanceof Array) {
+					target[name] = $.extend(deep, [], copy);
+				} else if (deep && copy instanceof Object) {
+					target[name] = $.extend(deep, {}, copy);
+				} else {
+					target[name] = options[name];
+				}
+			}
+			return target;
+		}
+	};
+	//	具体分为三种情况： 
+	//　　1. 属性是数组时，则将target[name]初始化为空数组，然后递归调用extend； 
+	//　　2. 属性是对象时，则将target[name]初始化为空对象，然后递归调用extend； 
+	//　　3. 否则，直接复制属性。
+
+	//完整版
+	$ = function() {
+		var copyIsArray,
+			toString = Object.prototype.toString,
+			hasOwn = Object.prototype.hasOwnProperty;
+		//检查自身属性 不追寻上去
+
+		class2type = {
+				'[object Boolean]': 'boolean',
+				'[object Number]': 'number',
+				'[object String]': 'string',
+				'[object Function]': 'function',
+				'[object Array]': 'array',
+				'[object Date]': 'date',
+				'[object RegExp]': 'regExp',
+				'[object Object]': 'object'
+			},
+
+			type = function(obj) {
+				return obj == null ? String(obj) : class2type[toString.call(obj)] || "object";
+			},
+
+			isWindow = function(obj) {
+				return obj && typeof obj === "object" && "setInterval" in obj;
+			},
+
+			isArray = Array.isArray || function(obj) {
+				return type(obj) === "array";
+			},
+
+			isPlainObject = function(obj) {
+				if (!obj || type(obj) !== "object" || obj.nodeType || isWindow(obj)) {
+					return false;
+				}
+
+				if (obj.constructor && !hasOwn.call(obj, "constructor") &&
+					!hasOwn.call(obj.constructor.prototype, "isPrototypeOf")) {
+					return false;
+				}
+
+				var key;
+				for (key in obj) {}
+
+				return key === undefined || hasOwn.call(obj, key);
+			},
+
+			extend = function(deep, target, options) {
+				for (name in options) {
+					src = target[name];
+					copy = options[name];
+
+					//					这是为了避免无限循环，要复制的属性copy与target相同的话，也就是将“自己”复制为“自己的属性”，可能导致不可预料的循环。
+					if (target === copy) {
+						continue;
+					}
+
+					if (deep && copy &&
+						(isPlainObject(copy) || (copyIsArray = isArray(copy)))) {
+						if (copyIsArray) {
+							copyIsArray = false;
+							clone = src && isArray(src) ? src : [];
+
+						} else {
+							clone = src && isPlainObject(src) ? src : {};
+						}
+
+						target[name] = extend(deep, clone, copy);
+					} else if (copy !== undefined) {
+						target[name] = copy;
+					}
+				}
+
+				return target;
+			};
+
+		return {
+			extend: extend
+		};
+	}();
+
+
+
+
+	//	https://www.zhihu.com/question/22232912?sort=created
+	//	寄生组合继承详解
+	//	https://www.cnblogs.com/xiaohuochai/p/5202761.html
+	//	display 详解
+</script>
+
+</html>
