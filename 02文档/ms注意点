@@ -8,6 +8,19 @@ JS原生问题:
 防止成员函数调用 闭包,匿名
 
 
-1.css  fix,absolute定位理解 
+css  fix,absolute定位理解 
 margin BFC理解
-实现自适应
+实现自适应fix
+
+js
+闭包 例子实际操作理解
+
+prototype _proto_ 区别理解
+
+JS继承方式:
+寄生组合式继承理解
+
+this理解 改变this指向
+
+深拷贝 extends使用 源码实现
+
