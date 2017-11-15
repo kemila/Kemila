@@ -6,3 +6,8 @@
 
 JS原生问题:
 防止成员函数调用 闭包,匿名
+
+
+1.css  fix,absolute定位理解 
+margin BFC理解
+实现自适应
