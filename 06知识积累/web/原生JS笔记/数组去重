@@ -128,3 +128,27 @@ dedupe([1,1,2,3]) //[1,2,3]
 let arr = [1,2,3,3];
 let resultarr = [...new Set(arr)];  
 console.log(resultarr); //[1,2,3]
+
+
+
+
+
+
+
+统计字符串中字母个数或统计最多字母数。
+
+var str = "aaaabbbccccddfgh";
+var obj  = {};
+for(var i=0;i<str.length;i++){
+    var v = str.charAt(i);
+    if(obj[v] && obj[v].value == v){
+        obj[v].count = ++ obj[v].count;
+    }else{
+        obj[v] = {};
+        obj[v].count = 1;
+        obj[v].value = v;
+    }
+}
+for(key in obj){
+    document.write(obj[key].value +'='+obj[key].count+'&nbsp;'); // a=4  b=3  c=4  d=2  f=1  g=1  h=1 
+} 
