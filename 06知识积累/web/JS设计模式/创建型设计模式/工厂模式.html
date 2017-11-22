@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="Anthor" content="kemila"/>
+    <title>工厂模式</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft yahei", serif;
+        }
+
+        li {
+            list-style-type: none;
+        }
+
+        #box {
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script>
+    //简单工厂模式  通过参数选择 期望的构造函数
+    var Basketball = function () {
+    };
+    var Football = function () {
+    };
+    var Tennisball = function () {
+    };
+    var SportsFactory = function (name) {
+        switch (name) {
+            case 'NBA':
+                return new Basketball();
+            case 'wordCup':
+                return new Football();
+            case 'FrenchOpen':
+                return new Tennisball();
+        }
+    }
+
+    //工厂方法模式 (安全  代码内部检测是否有new创建) 保证有new过程能继承prototype属性上的内容
+
+    var Factory = function (type, content) {
+        if (this instanceof Factory) {
+            var s = new this[type](content);
+            return s;
+        }
+        else {
+            return new Factory(type, content)
+        }
+    }
+
+    Factory.prototype = {
+        Java: function () {
+        },
+        JavaScript: function () {
+        },
+        C: function () {
+        },
+        Python: function () {
+        }
+    }
+
+    console.log(Factory('Java', 'jjjjj'));
+
+    //抽象工厂模式  抽象工厂 产生抽象类 抽象类被具体子类继承 再实例化
+
+    //传入 具体子类 和 抽象类
+    var VehicleFactory = function (subType, superType) {
+
+        ////寄生组合式继承
+        if (typeof VehicleFactory[superType] === 'function') {
+            //缓存类 寄生 子类prototype不影响父类
+            function F() {
+            };
+            //prototype属性赋值为 new VehicleFactory[superType]() 一个实例
+            //F继承父类的属性和方法
+            F.prototype = new VehicleFactory[superType]();
+            //子类构造 指向 子类
+
+            //constructor属性是 在new 对象 的.prototype.constructor 指向构造函数本身,是一个标识作用,基本不影响使用,但会导致
+            //原型链的错乱 详情见 https://segmentfault.com/q/1010000004396435/a-1020000004397371
+            // F.prototype = new VehicleFactory[superType]();这一步 原型指向了新的对象
+            //所以F.prototype.constructor 也发生了变化
+
+            //个人认为: 应该  subType.prototype.constructor = subType;但是
+            //这边传入的subType 就是一个函数对象 并不是new出来的一个实例
+            subType.constructor = subType;
+
+            //子类寄生继承
+            subType.prototype = new F();
+
+
+        } else {
+            throw new Error('未包含此抽象类' + superType)
+        }
+    }
+    VehicleFactory.Car = function () {
+        this.type = 'car';
+    }
+    VehicleFactory.Car.prototype = {
+        getPrice: function () {
+            return new Error('Car getPrice 抽象方法不能调用');
+        },
+        getSpeed: function () {
+            return new Error('Car getSpeed抽象方法不能调用')
+        }
+    }
+    VehicleFactory.Bus = function () {
+        this.type = 'Bus';
+    }
+    VehicleFactory.Bus.prototype = {
+        getPrice: function () {
+            return new Error('Bus getPrice 抽象方法不能调用');
+        },
+        getSpeed: function () {
+            return new Error('Bus getSpeed抽象方法不能调用')
+        }
+    }
+
+
+    var BMW = function (price, speed) {
+        this.price = price;
+        this.speed = speed;
+    }
+    VehicleFactory(BMW, 'Car');
+
+    //复写方法
+    BMW.prototype.getPrice=function()
+    {
+        return this.price;
+    }
+
+    var  _bmw =new BMW(1000,60)
+    _bmw.getPrice();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
