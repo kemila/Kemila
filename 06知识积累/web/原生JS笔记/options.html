@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Options</title>
+
+
+	<style id="boxcss">
+		#box {
+			width: 500px;
+/*			height: 300px;*/
+			border: 2px solid;
+			margin: 30px auto
+		}
+
+		#box div div:nth-of-type(odd) {
+			background-color: azure;
+			cursor: pointer;
+		}
+
+		#box div div:nth-of-type(even) {
+			background-color: aliceblue;
+			cursor: pointer;
+		}
+
+		#box div div:hover {
+			background-color: pink;
+			cursor: pointer;
+		}
+
+		#box input {
+			margin: 12px;
+			cursor: pointer;
+		}
+	</style>
+
+</head>
+
+<body>
+<!--
+	<div id="box">
+		<div class="options">
+			<div>
+				<input type="checkbox">
+				<span>香蕉</span>
+			</div>
+			<div>
+				<input type="checkbox">
+				<span>苹果</span>
+			</div>
+			<div>
+				<input type="checkbox">
+				<span>葡萄</span>
+			</div>
+			<div>
+				<input type="checkbox">
+				<span>草莓</span>
+			</div>
+			<div>
+				<input type="checkbox">
+				<span>橙子</span>
+			</div>
+			<div>
+				<input type="checkbox">
+				<span>榴莲</span>
+			</div>
+		</div>
+		<div class="function">
+			<input id="all" type="checkbox">
+			<span>全选</span>
+			<input id="allnot" type="checkbox">
+			<span>全不选</span>
+			<input id="inverse" type="checkbox">
+			<span>反选</span>
+		</div>
+	</div>
+-->
+	<script>
+		var $= {}
+		$.Cre_options = function(arr){
+			str_head = '<div id="box"><div class="options">';
+			str_tail = '</div><div class="function"><input class="all" type="checkbox"><span>全选</span><input class="allnot" type="checkbox"><span>全不选</span><input class="inverse" type="checkbox"><span>反选</span></div></div>';
+			for(var i=0;i<arr.length;i++){
+				str_head+='<div><input type="checkbox"><span>'+arr[i]+'</span></div>'
+			}
+			
+			var odiv = document.createElement('div');
+			odiv.innerHTML = str_head+str_tail;
+			document.body.appendChild(odiv);
+			
+//			document.getElementById('#box').style.height = arr.length*
+			var select_all = document.getElementsByClassName('all')[0],
+				select_allnot = document.getElementsByClassName('allnot')[0],
+				select_inverse = document.getElementsByClassName('inverse')[0],
+				options = document.querySelectorAll('#box div div input'),
+				ops_len = options.length;
+
+			select_all.onclick = function() {
+				var status = this.checked;
+				if (status) {
+					for (var i = 0; i < ops_len; i++) {
+						options[i].checked = true;
+					}
+				} else {
+					for (var i = 0; i < ops_len; i++) {
+						options[i].checked = false;
+					}
+				}
+			}
+
+			select_allnot.onclick = function() {
+				var status = this.checked;
+				if (status) {
+					for (var i = 0; i < ops_len; i++) {
+						options[i].checked = false;
+					}
+				}
+			}
+
+			select_inverse.onclick = function() {
+				var status = this.checked;
+				if (status) {
+					for (var i = 0; i < ops_len; i++) {
+						options[i].checked = !options[i].checked;
+					}
+				}
+			}
+			for (var i = 0; i < ops_len; i++) {
+				options[i].onclick = function() {
+					if(checkall()){
+						select_all.checked = true
+					}else{
+						select_all.checked = false
+					}
+				}
+			}
+
+			function checkall() {
+				for (var i = 0; i < ops_len; i++) {
+					console.log(options[i].checked);
+					if(!options[i].checked){
+						return false
+					}
+				}
+				return true
+			}
+		}
+		
+		$.Cre_options(['香蕉','苹果','梨','草莓','石榴']);
+//		$.Cre_options(['香蕉','苹果','梨','草莓','石榴']);
+	</script>
+</body>
+
+</html>
