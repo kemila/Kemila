@@ -8,7 +8,7 @@
 
 <body>
 	<script>
-		var f1 =function() {
+		var f1 = function() {
 			//子类的原型对象--类式继承
 			//父类构造
 			function SuperClass() {
@@ -27,7 +27,7 @@
 			//原型继承 将父类的实例赋值给子类的 原型对象
 			SubClass.prototype = new SuperClass();
 			//子类自己的原型方法
-			SubClass.prototype.geSubValue = function() {
+			SubClass.prototype.getSubValue = function() {
 				return this.subValue
 			}
 
@@ -35,7 +35,7 @@
 			console.log("类式继承");
 			var instance1 = new SubClass();
 			var instance2 = new SubClass();
-			console.log(instance1.geSubValue());
+			console.log(instance1.getSubValue());
 			console.log(instance1.getSuperValue());
 			console.log(instance2.books);
 			instance1.books.push("设计模式");
@@ -43,151 +43,174 @@
 
 			//缺点:引用类型继承 子类互相影响 ;   SubClass.prototype = new SuperClass(); 
 			//依赖父类实例 无法对父类构造函数内部值初始化 无法初始修改 superValue books内容
+
+
+			/* 
+        缺点：1.重写子类的原型 等于 父类的一个实例，（父类的实例属相变成子类的原型属性）如果父类包含引用类型的属性，那么子类所有实例都会共享该属性 
+                （包含引用类型的*原型*属性会被实例共享） 
+              2.在创建子类实例时，不能向父类的构造函数传递参数 
+         */
 		}();
 
 
 		//构造函数继承
-		var f2 =function() {
+		var f2 = function() {
 			//声明父类
-			function SuperClass(id){
+			function SuperClass(id) {
 				//引用类型
-				this.books = ['JavaScript','html','css'];
+				this.books = ['JavaScript', 'html', 'css'];
 				//值类型
 				this.id = id;
 			}
-			SuperClass.prototype.showBooks =function(){
+			SuperClass.prototype.showBooks = function() {
 				console.log(this.books);
 			}
-			
+
 			//子类
-			function SubClass(id){
+			function SubClass(id) {
 				//用call方法调用父类方法 执行上下文为子类
-				SuperClass.call(this,id);
+				SuperClass.call(this, id);
 			}
-			
-			var  instance1 =new SubClass(10);
-			var  instance2 =new SubClass(11);
+
+			var instance1 = new SubClass(10);
+			var instance2 = new SubClass(11);
 			console.log("构造函数继承");
 			console.log(instance2.books);
 			instance1.books.push("设计模式");
 			console.log(instance1.books);
 			console.log(instance2.books);
 			//缺点 无法继承父类原型上的方法属性
-//			instance1.showBooks();
+			//			instance1.showBooks();
 		}();
-		
+
+
 		//组合继承(类式继承+构造函数继承)
-		var f3 =function() {
-			function SuperClass(name){
-				this.name =name;
-				this.books = ['JavaScript','html','css'];
+		var f3 = function() {
+			function SuperClass(name) {
+				this.name = name;
+				this.books = ['JavaScript', 'html', 'css'];
 			}
-			SuperClass.prototype.getName =function(){
+			SuperClass.prototype.getName = function() {
 				console.log(this.name);
 			}
-			
-			function SubClass(name,time){
+
+			function SubClass(name, time) {
 				//用call方法调用父类方法 执行上下文为子类 构造函数继承
-				SuperClass.call(this,name);
-				this.time =time;
+				SuperClass.call(this, name);
+				this.time = time;
 			}
 			//子类 类式继承
+			//这种直接将父类实例
 			SubClass.prototype = new SuperClass();
-			
+
 			//子类原型方法
-			SubClass.prototype.getTime =function(){
+			SubClass.prototype.getTime = function() {
 				console.log(this.time);
 			}
-			
+			SubClass.prototype.getName = function() {
+				console.log('lalallalal');
+			}
+			var instancefather = new SuperClass('zhengqi');
+			console.log("SuperClass!!!!!!!!",instancefather);
+			instancefather.getName()
+//			console.log("SuperClass!!!!!!!!!!",instancefather.getName());
 			//测试 
 			console.log("组合继承");
-			var instance1  = new SubClass("JS BOOK",2014);
+			var instance1 = new SubClass("JS BOOK", 2014);
 			instance1.books.push("设计模式");
+			console.log("constructor",instance1.constructor);
+			console.log("constructor",SubClass.prototype.constructor);
 			console.log(instance1.books);
-			instance1.getName();
-			instance1.getTime();
-			
-			var instance2  = new SubClass("css BOOK",2015);
+			console.log(instance1);
+			console.log(instance1.getName());
+			console.log(instance1.getTime());
+
+			var instance2 = new SubClass("css BOOK", 2015);
+			console.log(instance2);
 			console.log(instance2.books);
-			instance2.getName();
-			instance2.getTime();
-			//继承了两种继承方式的优点
+			console.log(instance2.getName());
+			console.log(instance2.getTime());
+			//继承了两种继承方式的优点 SuperClass.call(this, name); 利用构造函数拷贝 复制了父类中的构造属性,可以防止子类共享构造属性;
+			//效率低
 		}();
 		//原型式继承
 		//就是类式继承的一层封装的一个方法
-		function inheritObject(o){
+		function inheritObject(o) {
 			//过渡函数
-			function F(){}
+			function F() {}
+			//这句是原型式继承最核心的地方，函数的原型对象为对象字面量
 			F.prototype = o;
 			return new F();
 		}
-		
+
 		//寄生式继承
-		var f4 =function() {
+		var f4 = function() {
 			console.log("寄生式继承");
 			//基对象
-			var book ={
-				name:"JS BOOK",
-				alikeBook:["css book","html book"]
+			var book = {
+				name: "JS BOOK",
+				alikeBook: ["css book", "html book"]
 			};
-			function createBook(obj){
+
+			function createBook(obj) {
 				//原型式继承 创建o
 				var o = new inheritObject(obj);
 				//拓展新对象
 				o.mybook = "dddd";
-				o.getName = function(){
+				o.getName = function() {
 					console.log(this.name);
 				};
 				//返回对象
 				return o;
 			}
-			
-			var  a = new createBook(book);
+
+			var a = new createBook(book);
 			a.getName();
 			console.log(a.mybook);
 		}()
-		
+
 		//寄生组合式继承
 		//寄生继承+构造函数继承
-		var f5 =function() {
+		var f5 = function() {
 			console.log("寄生组合式继承");
 			//继承分为两部分 原型prototype对象的继承 和 父类构造函数的构造函数继承
 			//原型prototype对象 有一个constructor 属性 指向构造函数本身
-			function inheritPrototype(subClass,superClass){
-				var p =inheritObject(superClass.prototype);
+			function inheritPrototype(subClass, superClass) {
+				var p = inheritObject(superClass.prototype);
 				//将 p.constructor指向子类构造函数
+				//不重写Prototype对象的情况下，实例的constructor指向它们的构造函数
 				p.constructor = subClass;
-				
+
 				subClass.prototype = p;
 			}
-			
+
 			//定义父类
-			function SuperClass(name){
+			function SuperClass(name) {
 				this.name = name;
-				this.colors = ["red","blue","green"];
+				this.colors = ["red", "blue", "green"];
 			}
 			//父类原型方法
-			SuperClass.prototype.getName=function(){
+			SuperClass.prototype.getName = function() {
 				console.log(this.name);
 			}
-			
+
 			//子类 构造函数继承
-			function SubClass(name,time){
-				this.time =time;
-				SuperClass.call(this,name);
+			function SubClass(name, time) {
+				this.time = time;
+				SuperClass.call(this, name);
 			}
-			
+
 			//寄生式继承父类原型
-			inheritPrototype(SubClass,SuperClass);
-			
+			inheritPrototype(SubClass, SuperClass);
+
 			//子类新增原型方法
-			SubClass.prototype.getTime= function(){
+			SubClass.prototype.getTime = function() {
 				console.log(this.time);
 			}
-			
+
 			//测试
-			var instance1 = new SubClass("JS book",2030);
-			var instance2 = new SubClass("css book",2015);
+			var instance1 = new SubClass("JS book", 2030);
+			var instance2 = new SubClass("css book", 2015);
 			instance1.colors.push("yellow");
 			console.log(instance1.colors);
 			console.log(instance2.colors);
