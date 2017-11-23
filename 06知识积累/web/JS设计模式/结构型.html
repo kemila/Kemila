@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+<body>
+	<script>
+		//外观模式
+		//为一组复杂的子系统接口 提供一个更高级的统一接口
+		//个人理解就是更好封装,通常解决兼容问题
+		//兼容事件
+		function adddEvent(dom, type, fn) {
+			//是否支持dom2 addEventListener方法
+			if (dom.addEventListener) {
+				dom.addEventListener(type, fn, false);
+			} else if (dom.attachEvent) {
+				dom.attachEvent('on' + type, fn);
+			} else {
+				dom['on' + type] = fn;
+			}
+		}
+
+		//兼容事件对象
+		var getEvent = function(event) {
+			return event || window.event;
+		}
+		var getTarget = function(event) {
+			var event = getEvent(event);
+			return event.target || event.srcElement;
+		}
+
+		//阻止默认行为
+		var preventDefault = function(event) {
+			var event = getEvent(event);
+			if (event.preventDefault) {
+
+				event.preventDefault();
+			} else {
+				event.returnValue = false;
+			}
+		}
+
+		//适配模式
+		//将一个类的接口转换为另一个接口,解决兼容问题
+		//异类框架适配
+		//参数适配器 提供默认适配数据
+		//数据适配 可以修改数据结构 使用新的结构
+		var arr = ['javascript', 'book', '前端', '8月1号']
+		//适配成
+		function arrToObjAdapter(arr) {
+			return {
+				name: arr[0],
+				type: arr[1],
+				title: arr[2],
+				time: arr[3]
+			}
+		}
+
+		//代理模式
+		//代理对象 中介作用
+		//站长统计
+		//JSONP
+		//代理模板
+
+
+		//装饰者模式
+		//在不改变原对象的基础上,对其进行包装拓展
+
+		//装饰者 给不同的input框添加 各自的回调函数
+		var decorator = function(input, fn) {
+			//获取事件源
+			var input = document.getElementById(input);
+			//若事件源已经绑定事件
+			if (typeof input.onclick === 'function') {
+				var oldClickFn = input.onclick;
+				input.onclick = function() {
+					oldClickFn();
+					fn();
+				}
+			} else {
+				input.onclick = fn;
+			}
+		}
+		//给tel_input这个 input添加自定义事件
+		//		decorator('tel_input',function(){
+		//			
+		//		})
+
+		//		桥接模式
+		//在系统沿着多个维度变化的同时,又不增加其复杂度 并 解耦
+		//		比如解耦dom和改变颜色的操作 可以抽象一个函数
+		function changeColor(dom,color,bg){
+			dom.style.color = color;
+			dom.style.background = bg;
+		}
+		//创建各种特性 桥接成一个对象,感觉比较像建造者模式
+		
+		//组合模式
+		
+	</script>
+</body>
+
+</html>
