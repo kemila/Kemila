@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>设计模式</title>
+</head>
+
+<body>
+	<script>
+		//建造者模式
+		//将一个复杂对象的构建层和表示层互相分离
+		//
+		var Human = function(param) {
+			//parm 存在          parm.skill存在          默认值
+			this.skill = param && param.skill || '保密';
+			this.hobby = param && param.hobby || '保密';
+		}
+		Human.prototype = {
+			getSkill: function() {
+				return this.skill;
+			},
+			getHobby: function() {
+				return this.skill;
+			}
+		}
+
+		//实例化名称类
+		var Named = function(name) {
+			//闭包存this变量
+			var that = this;
+
+			(function(name, that) {
+				that.wholeName = name;
+				if (name.indexOf(' ') > -1) {
+					that.FirstName = name.slice(0, name.indexOf(' '));
+					that.SecondName = name.slice(name.indexOf(' '));
+				}
+			})(name, that)
+
+		}
+		//实例职称类
+		var Work = function(work) {
+			//闭包存this变量
+			var that = this;
+
+			(function(work, that) {
+				switch (work) {
+					case 'code':
+						that.work = '工程师';
+						that.workDescript = '沉醉于编程';
+						break;
+					case 'teacher':
+						that.work = '教师';
+						that.workDescript = '教学';
+						break;
+					default:
+						that.work = work;
+						that.workDescript = '未知'
+				}
+			})(work, that);
+		}
+
+		//原型方法
+		Work.prototype.changeWork = function(work) {
+			this.work = work;
+		}
+		Work.prototype.changeDescript = function(setence) {
+			this.workDescript = setence;
+		}
+
+		//构建一个组件想要的类
+		//表示层
+		var Person = function(name, work) {
+			var _person = new Human();
+			_person.name = new Named(name);
+			_person.work = new Work(work);
+			return _person;
+		}
+
+		var person = new Person('xu heng', 'code');
+
+		console.log(person);
+
+
+
+
+		//原型模式
+		//原型模式 将可复用的 可共享的 耗时大的从基类中提取出来然后放在原型当中,然后继承
+
+		//举个栗子 图片轮播:
+		var LoopImages = function(imgArr, container) {
+			//不同轮播需要不同的数组 图片 所以放在构造函数中,每次都会新建
+			this.imagesArray = imgArr; //图片数组
+			this.container = container; //图片容器
+		}
+		//prototype方法是所有实例共享的
+		LoopImages.prototype = {
+			createImage:function(){
+				console.log('createImage');
+			},
+			changeImage:function(){
+				console.log('change');
+			}
+		}
+		
+		//上下滑动轮播:
+		var SildeLoopImg = function(imgArr,container){
+			//构造函数继承
+			LoopImages.call(this,imgArr,container);
+		}
+		//原型继承
+		SildeLoopImg.prototype = new LoopImages();
+		
+		//继承了两种继承方式的优点 LoopImages.call(this,imgArr,container);利用构造函数拷贝 复制了父类中的构造属性,可以防止子类共享构造属性;
+		//效率低
+		SildeLoopImg.prototype.changeImage = function(){
+			console.log('SildeLoopImg change');
+		}
+		
+		//单例模式
+		//只允许实例化一次的对象类
+		//JS实际就是定义在{}中 有自己的命名空间
+		var Config =(function(){
+			var config = {
+				MAX_NUM:100
+			}
+			return {
+				get:function(){
+					return config.MAX_NUM
+				}
+			}
+		})()
+		console.log(Config.get());
+		
+		
+		var LazySingle =(function(){
+			//本质就是用闭包保存_instance 这一个实例
+			var _instance =null;
+			function Single(){
+				return {
+					publicMethod:function(){},
+					publicProperty:'10'
+				}
+			}
+			return function(){
+				if(!_instance){
+					_instance = Single();
+				}else{
+					return _instance;
+				}
+			}
+		})()
+	</script>
+</body>
+
+</html>
