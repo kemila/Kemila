@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+
+<!--	<script src="demo.js"></script>-->
+
+</head>
+
+
+<body>
+	<canvas id="canvas" style="border:1px solid #aaa;">
+    </canvas>
+	<script>
+		window.onload = function() {
+			var canvas = document.getElementById('canvas');
+			var context = canvas.getContext("2d");
+			canvas.width = 1000;
+			canvas.height = 800;
+
+			//    context.moveTo(100,200);
+			//    context.lineTo(big,400);
+			//    context.lineTo(100,600);
+			//    context.lineWidth=10;
+			//    context.strokeStyle='red';
+			//    context.lineCap = "round";
+			//    context.stroke();
+			//    
+			//    context.beginPath();
+			//    context.moveTo(200,300);
+			//    context.lineTo(400,500);
+			//    context.lineTo(200,700);
+			//    context.lineWidth=5;
+			//    context.strokeStyle='green';
+			//    context.lineCap = "square";
+			//    context.stroke();
+			//    
+			//    context.rect(200,200,50,100);
+			//     context.stroke();
+
+
+			//    drawStar(context, 300, 100, 400, 400);
+			//    var small =100;
+			//    var big = 300;
+			//    setInterval(function(){
+			//        context.clearRect(0, 0, 800, 800);
+			//        context.lineJoin = "bevel";
+			//        //斜接 round 圆接  miter 尖接 context.miterLimit ~~~
+			//        drawStar(context, big, small, 400, 400,30);
+			//        console.log("lalal");
+			//        
+			//        if(small<200)
+			//        { small =small+5;}
+			//        else {small = 100;}
+			//
+			//    
+			//    },100);
+
+
+			//线性渐变
+			//            var skyStyle1 = context.createLinearGradient(0,0,0,canvas.height);
+			//            skyStyle1.addColorStop(0.0,'black');
+			//            skyStyle1.addColorStop(1.0,'#035');
+
+			//     双环渐变
+			//            var skyStyle2 =context.createRadialGradient(canvas.width/2,canvas.height,0,canvas.width/2,canvas.height,canvas.height);
+			//            skyStyle2.addColorStop(0.0,'#035');
+			//    
+			//            skyStyle2.addColorStop(1.0,'black');
+
+			//图片
+			//createPattern (x,y) 可以是图片 也可以是CANVAS video 
+
+			//    var backgroundImage = new Image();
+			//    backgroundImage.src = "hehe.jpg";
+			//    backgroundImage.onload = function(){
+			//        var pattern = context.createPattern(backgroundImage,"no-repeat");
+			//        context.fillStyle = pattern;
+			//        context.fillRect(0,0,1200,1000);
+			//    }
+			//    
+			//    
+			//    
+			//            context.fillStyle = skyStyle2;
+			//            context.fillRect(0, 0, canvas.width, canvas.height);
+			//    
+			//            for (var i = 0; i < 200; i++) {
+			//                var r = Math.random()*5+5;
+			//                var x =Math.random()*canvas.width;
+			//                var y = Math.random()*canvas.height* 0.65;
+			//                var a =Math.random()*360;
+
+
+			//                drawStar(context, x, y, r, r/2.0, a);
+			//            }
+
+			//调用arcto绘制月亮接口
+			//    fillMoon(context,2,700,200,150,30);
+			//用三次贝塞尔曲线绘制陆地
+			//    drawLand(context);
+
+
+
+			//文字渲染
+
+			context.font = "bold 40px Arial";
+			context.fillStyle = '#058';
+			context.fillText("~!#!@#$@R#!@#$!@#$!", 40, 100, 300);
+
+			context.lineWidth = 1;
+			context.strokeStyle = '#058';
+			var linearGrad = context.createLinearGradient(0, 0, 800, 0);
+			linearGrad.addColorStop(0.0, "red");
+			linearGrad.addColorStop(0.25, "orange");
+			linearGrad.addColorStop(0.5, "yellow");
+			linearGrad.addColorStop(0.75, "green");
+			linearGrad.addColorStop(1.0, "purple");
+			context.fillStyle = linearGrad;
+			context.fillText("哈喽你好sdfasdfasdfasd2222222222222222222222222", 40, 300);
+
+
+			//可用新接口来保存状态context.save();用Restore返回 图形变化用
+			//    context.save();
+			//    //translate() rotate() scale()  scale()是有副作用的
+			//    context.fillStyle = 'red';
+			//
+			//    context.translate(100, 100);
+			//    context.fillRect(0, 0, 400, 400);
+			//    //context.translate(-100, -100);
+			//    
+			//    
+			//    context.restore();
+			//    
+			//    context.fillStyle = 'green';
+			////translate会叠加调用
+			//    context.translate(300, 300);
+			//    context.fillRect(0, 0, 400, 400);
+
+
+
+
+
+
+
+
+
+			//矩阵变换
+			//transform(a,b,c,d,e,f)
+
+
+			//    context.fillStyle ='red';
+			//    context.strokeStyle='#058';
+			//    context.lineWidth = 5;
+			////    ace
+			////    bdf
+			////    001
+			////    ad    水平垂直缩放
+			////    bc    水平垂直倾斜
+			////    ef    水平垂直位移
+			//    context.save();
+			//    context.transform(1.1,0.5,0.4,1,121,121);
+			//    //transform 会叠加...settransform 不会叠加
+			//    context.fillRect(50,50,300,300);
+			//    context.strokeRect(50,50,300,300);
+			//    
+			//    //context.fill();
+			//    context.restore();
+
+
+
+
+
+			//fillStyle 讨论  渐变色
+
+			//    var linearGrad = context.createLinearGradient(0,0,800,800);
+			//    linearGrad.addColorStop(0.0,'#fff');
+			//    linearGrad.addColorStop(1.0,'#000');
+			//    
+			//    context.fillStyle=linearGrad;
+			//    context.fillRect(0,0,800,800);
+
+			//圆角矩形绘制
+
+			//    drawRoundRect(context, 300, 300, 500, 300, 30);
+
+			//arcTo(context,x0 , y0 ,dian ,dian,r)  x0 y0 起点
+
+
+
+
+
+
+
+
+
+		}
+
+		function drawLand(cxt) {
+			cxt.save();
+			cxt.beginPath();
+			cxt.moveTo(0, 600);
+			cxt.bezierCurveTo(540, 400, 660, 800, 1200, 600);
+			cxt.lineTo(1200, 800);
+			cxt.lineTo(0, 800);
+			cxt.closePath();
+
+			var landStyle = cxt.createLinearGradient(0, 800, 0, 0);
+			landStyle.addColorStop(0.0, '#030');
+			landStyle.addColorStop(1.0, '#580');
+			cxt.fillStyle = landStyle;
+
+			cxt.fill();
+			cxt.restore();
+		}
+
+		function fillMoon(cxt, d, x, y, R, rot, fillColor) {
+			cxt.save();
+			cxt.translate(x, y);
+			cxt.rotate(rot * Math.PI / 180);
+			cxt.scale(R, R);
+			pathMoon(cxt, d);
+			cxt.fillStyle = fillColor || '#fb5';
+			cxt.fill();
+			cxt.restore();
+		}
+
+		function pathMoon(cxt, d) {
+			cxt.beginPath();
+			cxt.arc(0, 0, 1, 0.5 * Math.PI, 1.5 * Math.PI, true);
+			cxt.moveTo(0, -1);
+			//    cxt.arcTo(d,0,0,1,dis(0,-1,d,0)/d);
+			//贝塞尔二次曲线
+			cxt.quadraticCurveTo(1.2, 0, 0, 1);
+
+			//贝塞尔三次曲线 两个控制点
+
+
+
+
+			cxt.closePath();
+		}
+
+		function dis(x1, y1, x2, y2) {
+			return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+		}
+
+
+
+
+
+		function drawRoundRect(cxt, x, y, width, height, radius) {
+			cxt.save();
+			cxt.translate(x, y);
+
+			pathRoundRect(cxt, width, height, radius);
+			cxt.strokeStyle = 'black';
+			cxt.stroke();
+
+
+
+
+			cxt.restore();
+		};
+
+		function pathRoundRect(cxt, width, height, radius) {
+			cxt.beginPath();
+
+			cxt.arc(width - radius, height - radius, radius, 0, Math.PI / 2);
+			cxt.lineTo(radius, height);
+			cxt.arc(radius, height - radius, radius, Math.PI / 2, Math.PI);
+			cxt.lineTo(0, radius);
+			cxt.arc(radius, radius, radius, Math.PI, Math.PI * 3 / 2);
+			cxt.lineTo(width - radius, 0);
+			cxt.arc(width - radius, radius, radius, Math.PI * 3 / 2, Math.PI * 2);
+
+
+
+			cxt.closePath();
+
+
+		}
+
+
+
+
+		function drawStar(cxt, x, y, R, r, rot) {
+
+			cxt.beginPath();
+			for (var i = 0; i < 5; i++) {
+				cxt.lineTo(Math.cos((18 + i * 72 - rot) / 180 * Math.PI) * R + x, -Math.sin((18 + i * 72 - rot) / 180 * Math.PI) * R + y);
+				cxt.lineTo(Math.cos((54 + i * 72 - rot) / 180 * Math.PI) * r + x, -Math.sin((54 + i * 72 - rot) / 180 * Math.PI) * r + y);
+			}
+			cxt.closePath();
+			cxt.fillStyle = '#fb3'
+			cxt.strokeStyle = '#ffdf9f';
+			cxt.lineWidth = 3;
+			cxt.lineJoin = 'round';
+			cxt.fill();
+			cxt.stroke();
+		}
+	</script>
+</body>
+
+</html>
