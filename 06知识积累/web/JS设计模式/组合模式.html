@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>组合模式实例</title>
+</head>
+
+<body>
+	<!--	div>span.$[title=$]{hhahaha$}*4-->
+
+
+
+	<script>
+		function inheritObject(o) {
+			//过渡函数
+			function F() {}
+			//这句是原型式继承最核心的地方，函数的原型对象为对象字面量
+			F.prototype = o;
+			return new F();
+		}
+
+		function inheritPrototype(subClass, superClass) {
+			var p = inheritObject(superClass.prototype);
+			//将 p.constructor指向子类构造函数
+			//不重写Prototype对象的情况下，实例的constructor指向它们的构造函数
+			p.constructor = subClass;
+
+			subClass.prototype = p;
+		}
+
+
+
+		//新闻父类
+		var News = function() {
+			this.children = [];
+			this.element = null;
+		}
+		News.prototype = {
+			init: function() {
+
+			},
+			add: function() {
+
+			},
+			getElement: function() {
+
+			}
+		}
+
+		//容器类
+		var Container = function(id, parent) {
+			News.call(this);
+			this.id = id;
+			this.parent = parent;
+			//构建方法: ???
+			this.init();
+		}
+		//寄生组合式继承
+		inheritPrototype(Container, News);
+
+		Container.prototype.init = function() {
+			this.element = document.createElement('ul');
+			this.element.id = this.id;
+			this.element.className = 'new-container';
+		}
+
+		Container.prototype.add = function(child) {
+			this.children.push(child);
+			this.element.appendChild(child.getElement());
+			return this;
+		}
+		Container.prototype.getElement = function() {
+			return this.element
+		}
+		Container.prototype.show = function() {
+			this.parent.appendChild(this.element);
+		}
+
+		//行成员集合类
+		var Item = function(classname) {
+			News.call(this);
+			this.classname = classname || '';
+			this.init();
+		}
+		//寄生组合式继承
+		inheritPrototype(Item, News);
+
+		Item.prototype.init = function() {
+			this.element = document.createElement('li');
+			this.element.className = this.classname;
+		}
+
+		Item.prototype.add = function(child) {
+			this.children.push(child);
+			this.element.appendChild(child.getElement());
+			return this;
+		}
+		Item.prototype.getElement = function() {
+			return this.element
+		}
+
+		//新闻组合体类
+		var NewsGroup = function(classname) {
+			News.call(this);
+			this.classname = classname || '';
+			this.init();
+		}
+		//寄生组合式继承
+		inheritPrototype(NewsGroup, News);
+
+		NewsGroup.prototype.init = function() {
+			this.element = document.createElement('div');
+			this.element.className = this.classname;
+		}
+
+		NewsGroup.prototype.add = function(child) {
+			this.children.push(child);
+			this.element.appendChild(child.getElement());
+			return this;
+		}
+		NewsGroup.prototype.getElement = function() {
+			return this.element
+		}
+
+		//正式创建新闻类:
+
+		//1图片新闻类:
+		var ImageNews = function(url, href, classname) {
+			News.call(this);
+			this.url = url || '';
+			this.href = href || '#';
+			this.classname = classname || 'normal';
+			this.init();
+		}
+		inheritPrototype(ImageNews, News);
+
+		ImageNews.prototype.init = function() {
+			this.element = document.createElement('a');
+			var img = new Image();
+			img.src = this.url;
+			this.element.appendChild(img);
+			this.element.className = 'img-news ' + this.classname;
+			this.element.href = this.href;
+		}
+
+		ImageNews.prototype.add = function() {}
+		ImageNews.prototype.getElement = function() {
+			return this.element;
+		}
+		//2简单新闻:
+		var EasyNews = function(text, href) {
+			News.call(this);
+			this.text = text || '';
+			this.href = href || '#';
+			this.init();
+		}
+		inheritPrototype(EasyNews, News);
+
+		EasyNews.prototype.init = function() {
+			this.element = document.createElement('a');
+			this.element.innerHTML = this.text;
+			this.element.className = 'text';
+			this.element.href = this.href;
+		}
+
+		EasyNews.prototype.add = function() {}
+		EasyNews.prototype.getElement = function() {
+			return this.element;
+		}
+
+		var new1 = new Container('news', document.body);
+		new1.add(
+			new Item('normal').add(
+				new ImageNews('1.PNG', '#', 'myclass')
+			).add(
+				new EasyNews('1111111', '#')
+			)
+		).add(
+			new Item('normal').add(
+				new ImageNews('1.PNG', '#', 'myclass')
+			).add(
+				new EasyNews('222222', '#')
+			).add(
+				new EasyNews('33333', '#')
+			).add(
+				new ImageNews('1.PNG', '#', 'myclass')
+			)
+		).show()
+	</script>
+</body>
+
+</html>
