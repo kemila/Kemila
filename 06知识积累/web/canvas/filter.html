@@ -1,0 +1,214 @@
+<!--*********************** 测试1-->
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+    <script src="demo.js"></script>
+
+</head>
+
+
+<body>
+    <div style="margin:20px auto;width:1700px;">
+        <canvas id="canvasa" style="border:1px solid #aaa;" width="800" height="560">
+        </canvas>
+
+
+        <canvas id="canvasb" style="border:1px solid #aaa;" width="800" height="560">
+        </canvas>
+    </div>
+
+
+    <div style="text-align:center;margin-top:20px;fonnt-size:20px;">
+        <a href="javascript: filter()"> Filter</a>
+    </div>
+    <div style="text-align:center;margin-top:20px;fonnt-size:20px;">
+        <a href="javascript: GreyEffect()"> GreyEffect</a>
+    </div>
+    <div style="text-align:center;margin-top:20px;fonnt-size:20px;">
+        <a href="javascript: BlackEffect()"> BlackEffect</a>
+    </div>
+    <div style="text-align:center;margin-top:20px;fonnt-size:20px;">
+        <a href="javascript: ReserveEffect()"> ReserveEffect</a>
+    </div>
+    <div style="text-align:center;margin-top:20px;fonnt-size:20px;">
+        <a href="javascript: BlurEffect()"> BlurEffect</a>
+    </div>
+    <div style="text-align:center;margin-top:20px;fonnt-size:20px;">
+        <a href="javascript: MosaicEffect()"> MosaicEffect</a>
+    </div>
+
+    <script>
+    //用火狐
+        var canvasa = document.getElementById("canvasa");
+        var contexta = canvasa.getContext("2d");
+        var image = new Image();
+
+
+        var canvasb = document.getElementById("canvasb");
+        var contextb = canvasb.getContext("2d");
+
+        window.onload = function () {
+            image.src = "Koala.jpg";
+            image.onload = function () {
+                contexta.drawImage(image, 0, 0, canvasa.width, canvasa.height);
+
+            }
+        };
+
+        function filter() {
+            var imageData = contexta.getImageData(0, 0, canvasa.width, canvasa.height)
+            var pixelDate = imageData.data;
+            // 自己写法
+            //            for (var i = 0; i < pixelDate.length ; i++) {
+            //                if(i%4==0)
+            //                {
+            //                    pixelDate[i] = 0;
+            //                }
+            //            }
+            //网上写法  滤镜的使用
+            //            for (var i = 0; i < canvasb.width * canvasb.height; i++) {
+            //                pixelDate[4 * i + 0] = 0;
+            //                pixelDate[4 * i + 1] = 0;
+            //                pixelDate[4 * i + 2] = 0;
+            //            }
+            contextb.putImageData(imageData, 0, 0);
+        };
+
+        function GreyEffect() {
+
+            var imageData = contexta.getImageData(0, 0, canvasa.width, canvasa.height)
+            var pixelDate = imageData.data;
+            for (var i = 0; i < canvasb.width * canvasb.height; i++) {
+                var r = pixelDate[4 * i + 0];
+                var g = pixelDate[4 * i + 1];
+                var b = pixelDate[4 * i + 2];
+                var grey = r * 0.3 + g * 0.59 + b * 0.11;
+
+                pixelDate[4 * i + 0] = grey;
+                pixelDate[4 * i + 1] = grey;
+                pixelDate[4 * i + 2] = grey;
+            }
+            contextb.putImageData(imageData, 0, 0);
+        }
+
+        function BlackEffect() {
+
+            var imageData = contexta.getImageData(0, 0, canvasa.width, canvasa.height)
+            var pixelDate = imageData.data;
+            for (var i = 0; i < canvasb.width * canvasb.height; i++) {
+                var r = pixelDate[4 * i + 0];
+                var g = pixelDate[4 * i + 1];
+                var b = pixelDate[4 * i + 2];
+                var v = 255;
+                var grey = r * 0.3 + g * 0.59 + b * 0.11;
+
+                if (grey > 255 / 2) {
+                    v = 255;
+                } else {
+                    v = 0;
+                }
+
+                pixelDate[4 * i + 0] = v;
+                pixelDate[4 * i + 1] = v;
+                pixelDate[4 * i + 2] = v;
+            }
+            contextb.putImageData(imageData, 0, 0);
+        }
+
+        function ReserveEffect() {
+
+            var imageData = contexta.getImageData(0, 0, canvasa.width, canvasa.height)
+            var pixelDate = imageData.data;
+            for (var i = 0; i < canvasb.width * canvasb.height; i++) {
+
+
+
+                pixelDate[4 * i + 0] = 255 - pixelDate[4 * i + 0];
+                pixelDate[4 * i + 1] = 255 - pixelDate[4 * i + 1];
+                pixelDate[4 * i + 2] = 255 - pixelDate[4 * i + 2];
+            }
+            contextb.putImageData(imageData, 0, 0);
+        }
+
+        function BlurEffect() {
+
+            var imageData = contexta.getImageData(0, 0, canvasa.width, canvasa.height)
+            var pixelDate = imageData.data;
+            var tmpImageData = contexta.getImageData(0, 0, canvasa.width, canvasa.height)
+            var tmpPixelDate = tmpImageData.data;
+
+            var blurR = 3;
+            var d = (blurR - 1) / 2;
+            for (var i = d; i < canvasb.height - d; i++)
+                for (var j = d; j < canvasb.width - d; j++) {
+
+
+                    var totalr = 0,
+                        totalg = 0,
+                        totalb = 0;
+                    for (var dx = -d; dx <= d; dx++)
+                        for (var dy = -d; dy <= d; dy++) {
+                            var x = i + dx;
+                            var y = j + dy;
+                            var p = x * canvasb.width + y;
+                            totalr += tmpPixelDate[p * 4 + 0];
+                            totalg += tmpPixelDate[p * 4 + 1];
+                            totalb += tmpPixelDate[p * 4 + 2];
+
+
+                        }
+
+                    var p = i * canvasb.width + j;
+                    var number = blurR * blurR;
+                    pixelDate[p * 4 + 0] = totalr / number;
+                    pixelDate[p * 4 + 1] = totalg / number;
+                    pixelDate[p * 4 + 2] = totalb / number;
+                }
+
+
+
+            contextb.putImageData(imageData, 0, 0);
+        }
+//比较简单直接用中间块颜色.也可以用平均值,
+        function MosaicEffect() {
+
+            var imageData = contexta.getImageData(0, 0, canvasa.width, canvasa.height)
+            var pixelDate = imageData.data;
+            var tmpImageData = contexta.getImageData(0, 0, canvasa.width, canvasa.height)
+            var tmpPixelDate = tmpImageData.data;
+
+            var blurR = 7;
+            var d = (blurR - 1) / 2;
+            for (var i = d; i < canvasb.height - d; i = i + d * 2)
+                for (var j = d; j < canvasb.width - d; j = j + d * 2) {
+
+                    var tp = i * canvasb.width + j;
+                    var tr = tmpPixelDate[tp * 4 + 0];
+                    var tg = tmpPixelDate[tp * 4 + 1];
+                    var tb = tmpPixelDate[tp * 4 + 2];
+
+                    for (var dx = -d; dx <= d; dx++)
+                        for (var dy = -d; dy <= d; dy++) {
+                            var x = i + dx;
+                            var y = j + dy;
+                            var p = x * canvasb.width + y;
+                            pixelDate[p * 4 + 0] = tr;
+                            pixelDate[p * 4 + 1] = tg;
+                            pixelDate[p * 4 + 2] = tb;
+                        }
+                }
+            contextb.putImageData(imageData, 0, 0);
+        }
+    </script>
+
+
+
+</body>
+
+</html>
+
+
+
