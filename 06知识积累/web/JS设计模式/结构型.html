@@ -98,7 +98,36 @@
 		}
 		//创建各种特性 桥接成一个对象,感觉比较像建造者模式
 		
-		//组合模式
+		
+		//	享元模式: 运用共享技术有效地支持大量细粒度的对象,避免对象间用过相同内容造成多余的开销;
+//	是对数据 方法的共享和分离
+//		抽象一个享元类  例子分页实现
+		var Flyweight = function(){
+			//闭包保存已经创建元素
+			var created = [];
+			function create(){
+				var dom = document.createElement('div');
+				document.getElementById('container').appendChild(dom);
+				created.push(dom);
+				return dom;
+			}
+			
+			return {
+				getDiv: function(){
+					if(created.length<5){
+						return create();
+					}else{
+						///获取第一个元素 插在最后 返回后可以供外部改变内容
+						var div= created.shift();
+						create.push(div);
+						return div;
+					}
+				}
+			}
+			
+		}();//自执行
+		
+		
 		
 	</script>
 </body>
