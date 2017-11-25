@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+<body>
+	<script>
+		//	//中介者模式 
+
+
+
+
+		//中介者模式理解起来很简单，即多个对象之间需要交互，那么这些对象间的交互就会形成网状结构。引入中介者，各对象根本不知道其它对象的存在，他们只需要把信息发送给中介者，由中介者来控制吧信息传递给哪些对象。所以，就变成了一个星形的结构。 
+		//中介者模式的目的很明显，就是为了解耦，但是缺点，也是比较明显，那就是中介者类本身会变得复杂，牵扯过多。所以，如果网状结构不是非常复杂，那么就不一定要考虑中介者。一旦使用了中介者，那么就需要谨慎的维护它，避免牵一发而动全身的错误。
+		//与观察者模式一样,总结一下，当许多类依赖某一个类的状态改变而做出反应时，就可以使用观察者模式。
+		//10、中介者模式：用一个对象来封装一系列对象的交互方式。中介者使各对象不需要显示地相互引用，从而使其耦合松散，而且可以独立地改变它们之间的交互。
+		//
+		//
+		//11、观察者模式(发布-订阅模式)：定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。
+		var Mediator = function() {
+			//消息对象
+			var _msg = {};
+			return {
+				register: function(type, action) {
+					if (_msg[type]) {
+						_msg[type].push(action);
+					} else {
+						_msg[type] = [];
+						_msg[type].push(action);
+					}
+				},
+				send: function(type) {
+					if (_msg[type]) {
+						for (var i = 0, len = _msg[type].length; i < len; i++) {
+							_msg[type][i] && _msg[type][i]()
+						}
+					}
+				}
+
+
+			}
+		}
+
+
+		//备忘录模式
+		//在不破坏对象的封装性的前提下
+		//对现有的数据或者状态进行缓存数据
+
+		//分页数据缓存  不全
+		var Page = function() {
+			var cashe = {};
+
+			//fn是回调函数 
+			return function(page, fn) {
+				if (cashe[page]) {
+					//页面展示函数
+					showPage(page, cashe[page]);
+					fn && fn();
+				} else {
+					//无缓存 发送请求更新数据:
+					$.post('xxx', {
+						page: page
+					}, function(res) {
+						if (res.status === 200) {
+							showPage(page, res.data);
+							cashe[page] = res.data;
+							fn && fn();
+						} else {
+
+						}
+					})
+				}
+			}
+		}
+		
+		
+		//点钞机 迭代器模式
+		//在不暴露对象内部的结构的同事,可以顺序地访问聚合对象内部的元素
+		//迭代器是优化循环语句的一种方案
+		
+		//同步变了迭代器:
+		//页面加载时打印到页面中的变量;
+		var A= {
+			common:{},
+			client:{
+				user:{
+					username:'雨夜',
+					uid:'123'
+				}
+			},
+			server:{}
+		}
+		//如果要取A.client.user.uid要判断前面的存在性 不然undefined.会爆红
+		
+		AGetter =function(key){
+			if(!A){
+				return undefined;
+				key = key.split('.');
+				
+				for(var i = 0,len = key.length;i<len;i++){
+					
+				}
+			}
+		}
+	</script>
+</body>
+
+</html>
