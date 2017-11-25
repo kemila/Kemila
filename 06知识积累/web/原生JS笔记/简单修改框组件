@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		p:after {
+			width: 30%;
+			height: 1px;
+			background-color: black;
+			content: "";
+			position: absolute;
+		}
+		.co_input.active{
+			display: inline-block;
+		}
+		.co_input{
+			
+			display: none;
+		}
+		.co_span.active{
+			width: 170px;
+			display: inline-block;
+		}
+		.co_span{
+			display: none;
+		}
+	</style>
+</head>
+
+
+<body>
+	<div>
+		<input class="co_input active" type="text" value="">
+		<span class="co_span">2222</span>
+		<input  type="button" class="co_btn" onclick="co_btn_click()" value="输入"/>
+		<p></p>
+	</div>
+	<script>
+		var oInput = document.getElementsByClassName('co_input')[0],
+		 oSpan = document.getElementsByClassName('co_span')[0],
+		 oBtn = document.getElementsByClassName('co_btn')[0],
+		 abtn_value = ['输入','修改'];
+		function co_btn_click(){
+			oBtn.value = abtn_value[oBtn.value==='输入'?1:0];
+			oSpan.innerHTML = oInput.value;
+			
+			
+			oInput.classList.toggle('active');
+			oSpan.classList.toggle('active');
+			
+		}
+	
+	</script>
+</body>
+
+</html>
