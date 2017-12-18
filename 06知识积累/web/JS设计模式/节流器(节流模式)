@@ -1,0 +1,18 @@
+节流写法
+
+var count = 0;
+function beginCount() {
+    count++;
+    console.log(count);
+}
+function delayFn(method, thisArg) {
+    clearTimeout(method.props);
+    method.props = setTimeout(function () {
+        method.call(thisArg)
+    },100)
+}
+document.onmousemove = function () {
+    delayFn(beginCount)
+};
+
+用于控制连续发生的事件,节省资源
