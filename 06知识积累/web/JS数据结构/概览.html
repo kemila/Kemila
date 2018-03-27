@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="Anthor" content="阿飞老师" />
+        <title>Title</title>
+        <style>
+            *{ margin:0; padding:0; font-family:"Microsoft yahei",serif;}
+            li{ list-style-type: none;}
+            #box{ }
+        </style>
+    </head>
+    <body>
+        <div id="box"></div>
+        <script>
+            //ES6
+            //迭代函数 every some forEach map filter reduce
+
+            //新增数组功能
+            let arr = [1,43,7,9,'dd',0,{cc:22}];
+
+            arr.forEach(x=>{
+               console.log(x+2)
+            });
+
+            for(let n of arr){
+                console.log(n+2)
+            };
+
+            let iterator = arr[Symbol.iterator]();
+            console.log(iterator.next().value);
+
+
+            let aEntries = arr.entries();
+            console.log(Object.entries(arr));
+
+            let aKeys = arr.keys();
+            console.log(Object.keys(arr));
+
+            // let aValues = arr.values();
+            console.log(Object.values(arr));
+
+            //可以用做拷贝 但是只是浅拷贝
+            var b = Array.from(arr);
+
+            var o = Array.of(b);
+
+            o.fill(0);
+
+            b.copyWithin(2,3,5);
+
+            //改变原来数组
+            arr.reverse();
+
+
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
