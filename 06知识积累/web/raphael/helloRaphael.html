@@ -1,0 +1,36 @@
+<html>
+
+<head></head>
+<script type="text/javascript" src="./node_modules/raphael/raphael.min.js"></script>
+
+<body>
+    <div id="raphael"></div>
+    <!-- <script type="text/javascript">
+        var paper = Raphael(10, 50, 320, 200);
+        var circle = paper.circle(50, 40, 10);
+        circle.attr("fill", "#f00");
+        circle.attr("stroke", "#fff");
+    </script> -->
+    <script type="text/javascript">
+        var paper = Raphael("raphael", 1000, 1000);
+        //画圆 
+        var circle = paper.circle(100, 100, 10);
+        circle.attr("fill", "#f00");
+        circle.attr("stroke", "#fff");
+        //画椭圆
+        var ellipse = paper.ellipse(200, 100, 40, 20);
+        ellipse.attr("fill", "#ccc");
+        ellipse.attr("stroke", "#000");
+        //贴图 图片请自带
+        var image = paper.image("apple.jpg", 300, 100, 80, 80);
+        //画路径 从10.10 移动到90.90
+        var path = paper.path("M400 100L500 300");
+        // 正常的方形
+        var rect1 = paper.rect(500, 100, 50, 50);
+        // 带10弧度的方形
+        var rect2 = paper.rect(600, 100, 50, 50, 10);
+
+    </script>
+</body>
+
+</html>
