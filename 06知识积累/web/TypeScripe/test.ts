@@ -104,3 +104,32 @@ getProperty(x, "a"); // 正常
 function create<T> (c: {new(): T;}): T {
     return new c();
 }
+
+
+
+// class BeeKeeper {
+//     hasMask: boolean;
+// }
+
+// class ZooKeeper {
+//     nametag: string;
+// }
+
+// class Animal {
+//     numLegs: number;
+// }
+
+// class Bee extends Animal {
+//     keeper: BeeKeeper;
+// }
+
+// class Lion extends Animal {
+//     keeper: ZooKeeper;
+// }
+
+// function createInstance<A extends Animal>(c: new () => A): A {
+//     return new c();
+// }
+
+// createInstance(Lion).keeper.nametag;  // typechecks! 只做了检查~~~~ 运行是报错的 因为内部没有实例化
+// createInstance(Bee).keeper.hasMask;   // typechecks!
