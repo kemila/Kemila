@@ -1,0 +1,113 @@
+@import '../../../../style/common.scss';
+.catalog-container {
+    .pagination-container {
+        width: 100%;
+        height: 40px;
+        position: relative;
+        .pagination-control {
+            display: inline-flex;
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            .active {
+                a {
+                    color: #fcc800 !important;
+                }
+            }
+            .prev-class,
+            .next-class {
+                display: inline-block;
+                padding: 0px 4px;
+            }
+            .page-item {
+                display: inline-block;
+                padding: 0px 2px;
+                border: 0px;
+            }
+            a:focus {
+                outline: none;
+            }
+            .prev-class,
+            .next-class,
+            .page-item {
+                cursor: pointer;
+                a {
+                    color: white;
+                }
+            }
+            .prev-class:hover,
+            .next-class:hover,
+            .page-item:hover {
+                a {
+                    color: #fcc800;
+                }
+            }
+        }
+        .jump-container {
+            position: absolute;
+            top: 0px;
+            right: 2px;
+            width: 30px;
+            height: 100%;
+            cursor: pointer;
+            line-height: 40px;
+            .title {
+                font-size: 12px;
+            }
+            .box-area {
+                position: absolute;
+                top: -48px;
+                right: 0px;
+                width: 140px;
+                height: 48px;
+                background: transparent;
+                .jump-page {
+                    position: absolute;
+                    top: 0px;
+                    width: 140px;
+                    display: flex;
+                    height: 40px;
+                    background: $globalGrayBackgroundColor;
+                    justify-content: center;
+                    .page-info {
+                        width: 110px;
+                        height: 100%;
+                        .input-control {
+                            width: 46px;
+                            height: 22px;
+                            text-align: center;
+                            outline: none;
+                            border: none;
+                        }
+                        .name {
+                            margin-left: 5px;
+                        }
+                        .jump-btn {
+                            margin-left: 15px;
+                        }
+                        .jump-btn:hover {
+                            color: $goldColor;
+                        }
+                    }
+                }
+                .dot-bottom {
+                    position: absolute;
+                    font-size: 0;
+                    line-height: 0;
+                    border: 8px dashed $globalGrayBackgroundColor;
+                    border-bottom-width: 0;
+                    border-top-style: solid;
+                    border-left-color: transparent;
+                    border-right-color: transparent;
+                    right: 0px;
+                    bottom: 0px;
+                }
+            }
+        }
+        .jump-container:hover {
+            .title {
+                color: $goldColor;
+            }
+        }
+    }
+}

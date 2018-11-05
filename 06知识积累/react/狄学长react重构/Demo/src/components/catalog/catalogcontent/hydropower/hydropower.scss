@@ -1,0 +1,52 @@
+@import '../../../../style/common';
+.catalog-container {
+    .hydropower {
+        width: $catalogContentWidth;
+        height: 100%;
+        padding-left: 15px;
+        .list-items {
+            width: 100%;
+            height: auto;
+            .title {
+                height: 30px;
+                line-height: 30px;
+                font-weight: bolder;
+            }
+            .tools {
+                width: 100%;
+                .tool {
+					display: inline-block;
+				    text-align: center;
+				    height: auto;
+				    vertical-align: top;
+				    font-size: 12px;
+				    cursor: pointer;
+				    width: 64px;
+				    padding-right: 19px;
+				    padding-left: 5px;
+				    padding-bottom: 10px;
+                    .img-icon {
+                        width: 100%;
+                        img {
+                            width: 100%;
+                            transition: all .6s;
+                        }
+                        img:hover {
+                          transform: scale(1.08); 
+                        }
+                    }
+                    .name {
+                        padding-top: 10px;
+                    }
+                }
+            }
+        }
+        .ps__rail-y {
+            width: 0px;
+            .ps__thumb-y {
+                width: 5px;
+                right: 0px;
+            }
+        }
+    }
+}

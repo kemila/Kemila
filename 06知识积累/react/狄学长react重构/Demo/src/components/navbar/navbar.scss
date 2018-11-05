@@ -1,0 +1,15 @@
+@import "../../style/common.scss";
+.navbar-container {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 50px;
+    background: $globalDarkBackgroundColor;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .title {
+        font-size: 18px;
+        color: whitesmoke;
+    }
+}

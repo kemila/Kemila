@@ -1,0 +1,8 @@
+@import '../../../style/common';
+.catalog-container {
+	.catalog-content {
+	    width: $catalogContentWidth;
+	    height: 100%;
+		display: flex;
+	}
+}

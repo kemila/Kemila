@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="55px" height="55px" viewBox="0 0 55 55" enable-background="new 0 0 55 55" xml:space="preserve">
+<g>
+	<g>
+		<g>
+			<path fill="#B5B4B4" d="M50,0.5c2.481,0,4.5,2.019,4.5,4.5v45c0,2.481-2.019,4.5-4.5,4.5H5c-2.481,0-4.5-2.019-4.5-4.5V5
+				c0-2.481,2.019-4.5,4.5-4.5H50 M50,0H5C2.25,0,0,2.25,0,5v45c0,2.75,2.25,5,5,5H50c2.75,0,5-2.25,5-5V5C55,2.25,52.75,0,50,0
+				L50,0z"/>
+		</g>
+	</g>
+	<g>
+		<g>
+			<path fill="#B5B4B4" d="M48.844,7.016v40.969H6.156V7.016H48.844 M49.844,6.016H5.156v42.969h44.688V6.016L49.844,6.016z"/>
+		</g>
+	</g>
+	<g>
+		<g>
+			<rect x="18.046" y="25.528" fill="#B5B4B4" width="1.719" height="5.155"/>
+			
+				<rect x="12.819" y="36.126" transform="matrix(0.8659 -0.5002 0.5002 0.8659 -17.5251 12.0307)" fill="#B5B4B4" width="1.718" height="5.157"/>
+			
+				<rect x="23.274" y="36.126" transform="matrix(-0.8661 -0.4999 0.4999 -0.8661 25.6853 84.2904)" fill="#B5B4B4" width="1.719" height="5.157"/>
+		</g>
+		<g>
+			<path fill="#B5B4B4" d="M13.302,13.633v1.283c-0.381-0.472-0.958-0.781-1.611-0.781c-1.148,0-2.078,0.93-2.078,2.077
+				c0,1.146,0.93,2.076,2.078,2.076c0.654,0,1.23-0.309,1.611-0.782v1.283h1.719v-5.156H13.302z"/>
+			<path fill="#B5B4B4" d="M24.51,13.633v1.283c0.381-0.472,0.958-0.781,1.611-0.781c1.148,0,2.078,0.93,2.078,2.077
+				c0,1.146-0.93,2.076-2.078,2.076c-0.654,0-1.23-0.309-1.611-0.782v1.283h-1.719v-5.156H24.51z"/>
+		</g>
+	</g>
+	<g>
+		<rect x="33.499" y="10.742" fill="none" stroke="#B5B4B4" stroke-miterlimit="10" width="13.463" height="33.516"/>
+		<line fill="none" stroke="#B5B4B4" stroke-width="2" stroke-miterlimit="10" x1="36.792" y1="15.389" x2="43.667" y2="15.389"/>
+	</g>
+</g>
+</svg>

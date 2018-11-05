@@ -1,0 +1,160 @@
+@import '../../../../style/common.scss';
+.catalog-container {
+    .catalog-content {
+        .header-search {
+            width: 100%;
+            height: auto;
+            padding-top: 5px;
+            padding-bottom: 10px;
+            .search-control {
+                width: 100%;
+                position: relative;
+                padding-top: 5px;
+                .search-input {
+                    width: 250px;
+                    outline: none;
+                    border: none;
+                    height: 20px;
+                    padding-left: 10px;
+                }
+                img {
+                    position: absolute;
+                    right: 20px;
+                    top: 8px;
+                    cursor: pointer;
+                }
+            }
+            .select-conditions {
+                margin-top: 10px;
+                width: 100%;
+                height: auto;
+                display: flex;
+                position: relative;
+                z-index: 100;
+                .condition-item {
+                    width: 76px;
+                    height: 20px;
+                    cursor: pointer;
+                    margin-right: 4px;
+                    .name-control {
+                        position: relative;
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        background: $globalGrayBackgroundColor;
+                        .name {
+                            width: 60px;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                            white-space: nowrap;
+                            margin-left: 4px;
+                        }
+                        .dot-bottom {
+                            position: absolute;
+                            font-size: 0;
+                            line-height: 0;
+                            border: 5px dashed #e0dfdf;
+                            border-bottom-width: 0;
+                            border-top-style: solid;
+                            border-left-color: transparent;
+                            border-right-color: transparent;
+                            top: 9px;
+                            right: 4px;
+                        }
+                        .dot-top {
+                            display: none;
+                            position: absolute;
+                            top: 8px;
+                            right: 4px;
+                            font-size: 0;
+                            line-height: 0;
+                            border-width: 5px;
+                            border-color: #e0dfdf;
+                            border-top-width: 0;
+                            border-style: dashed;
+                            border-bottom-style: solid;
+                            border-left-color: transparent;
+                            border-right-color: transparent;
+                        }
+                    }
+                    .items {
+                        display: none;
+                        position: absolute;
+                        width: 258px;
+                        border: 1px solid #6d6d6d;
+                        background: $globalGrayBackgroundColor;
+                        top: 20px;
+                        left: 0px;
+                        min-height: 80px;
+                        max-height: 250px;
+                        .item {
+                            display: inline-block;
+                            width: 50%;
+                            height: 26px;
+                            text-align: center;
+                            line-height: 26px;
+                            cursor: pointer;
+                        }
+                        .item:hover {
+                            color: $goldColor;
+                        }
+                        .active {
+                            color: $goldColor;
+                        }
+                    }
+                }
+                .condition-item:hover {
+                    .name-control {
+                        .dot-bottom {
+                            display: none;
+                        }
+                        .dot-top {
+                            display: block;
+                        }
+                    }
+                    .items {
+                        display: block;
+                    }
+                }
+                .expand-conditions-icon {
+                    cursor: pointer;
+                    display: flex;
+                    width: 20px;
+                    height: 20px;
+                    background: $globalGrayBackgroundColor;
+                    justify-content: center;
+                    align-items: center;
+                    .normal {
+                        display: block;
+                    }
+                    .light {
+                        display: none;
+                    }
+                    img {
+                        width: 12px;
+                        height: 12px;
+                    }
+                }
+                .expand-conditions-icon:hover {
+                    .normal {
+                        display: none;
+                    }
+                    .light {
+                        display: block;
+                    }
+                }
+            }
+            .scrollbar-container {
+                max-height: 250px;
+            }
+            .ps__rail-y {
+                width: 0px;
+                .ps__thumb-y {
+                    width: 3px;
+                    right: 0px;
+                }
+            }
+        }
+    }
+}

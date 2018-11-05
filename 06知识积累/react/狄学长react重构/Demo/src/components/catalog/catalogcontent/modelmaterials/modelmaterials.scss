@@ -1,0 +1,26 @@
+@import '../../../../style/common.scss';
+.catalog-container {
+    .catalog-content {
+        .catalog-model {
+            .models-materials {
+                width: 100%;
+                height: calc(100% - 107px);
+                cursor: pointer;
+                position: relative;
+                .no-models-info {
+                    position: absolute;
+                    top: 35%;
+                    left: 14%;
+                    font-size: 22px;
+                }
+            }
+            .ps__rail-y {
+                width: 0px;
+                .ps__thumb-y {
+                    width: 5px;
+                    right: 0px;
+                }
+            }
+        }
+    }
+}

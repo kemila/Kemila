@@ -1,0 +1,12 @@
+@import '../../style/common.scss';
+.catalog-container {
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    background: $globalDarkBackgroundColor;
+    width: $catalogWidth;
+    height: calc(100% - 50px);
+    display: flex;
+    font-size: 14px;
+    color: #b4b4b4;
+}

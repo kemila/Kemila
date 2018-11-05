@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="64px" height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+<g>
+	<g>
+		<path fill="#B5B4B4" d="M59,5v54H5V5H59 M59.5,4.5h-55v55h55V4.5L59.5,4.5z"/>
+	</g>
+</g>
+<g>
+	<g>
+		<g>
+			<path fill="#B4B4B4" d="M34.431,20.674c5.066,0,9.188,4.122,9.188,9.188c0,5.065-4.122,9.186-9.188,9.186
+				c-5.065,0-9.187-4.12-9.187-9.186C25.244,24.796,29.365,20.674,34.431,20.674 M34.431,18.674
+				c-6.179,0-11.187,5.007-11.187,11.188c0,6.18,5.007,11.186,11.187,11.186c6.178,0,11.188-5.006,11.188-11.186
+				C45.619,23.682,40.608,18.674,34.431,18.674L34.431,18.674z"/>
+		</g>
+		<g>
+			<path fill="#B4B4B4" d="M22.267,19.318v21.685v1h1h21.546v2.679H19V19.318H22.267 M23.267,18.318H18v27.363h27.813v-4.679H23.267
+				V18.318L23.267,18.318z"/>
+		</g>
+		<defs>
+			<filter id="Adobe_OpacityMaskFilter" filterUnits="userSpaceOnUse" x="18" y="18.318" width="27.813" height="27.363">
+				
+					<feColorMatrix  type="matrix" values="-1 0 0 0 1  0 -1 0 0 1  0 0 -1 0 1  0 0 0 1 0" color-interpolation-filters="sRGB" result="source"/>
+			</filter>
+		</defs>
+		<mask maskUnits="userSpaceOnUse" x="18" y="18.318" width="27.813" height="27.363" id="SVGID_1_">
+			<g filter="url(#Adobe_OpacityMaskFilter)">
+				<g>
+					<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="29.561" y1="9.722" x2="0.964" y2="32.628"/>
+					<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="30.837" y1="10.936" x2="2.241" y2="33.843"/>
+					<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="32.114" y1="12.151" x2="3.517" y2="35.058"/>
+					<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="33.391" y1="13.366" x2="4.794" y2="36.272"/>
+					<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="34.667" y1="14.581" x2="6.07" y2="37.486"/>
+					<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="35.943" y1="15.795" x2="7.347" y2="38.701"/>
+					<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="37.221" y1="17.01" x2="8.623" y2="39.916"/>
+					<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="38.497" y1="18.225" x2="9.9" y2="41.131"/>
+					<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="39.773" y1="19.439" x2="11.177" y2="42.346"/>
+					<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="41.051" y1="20.654" x2="12.453" y2="43.561"/>
+					<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="42.327" y1="21.869" x2="13.729" y2="44.775"/>
+					<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="43.604" y1="23.083" x2="15.006" y2="45.99"/>
+					<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="44.881" y1="24.298" x2="16.283" y2="47.204"/>
+					<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="46.157" y1="25.513" x2="17.56" y2="48.419"/>
+					<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="47.434" y1="26.728" x2="18.836" y2="49.634"/>
+					<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="48.711" y1="27.942" x2="20.113" y2="50.849"/>
+					<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="49.986" y1="29.157" x2="21.39" y2="52.063"/>
+					<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="51.264" y1="30.372" x2="22.666" y2="53.277"/>
+					<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="52.54" y1="31.586" x2="23.942" y2="54.492"/>
+					<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="53.816" y1="32.801" x2="25.219" y2="55.707"/>
+					<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="55.094" y1="34.016" x2="26.496" y2="56.922"/>
+					<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="56.37" y1="35.23" x2="27.772" y2="58.137"/>
+				</g>
+			</g>
+		</mask>
+		<g mask="url(#SVGID_1_)">
+			<polygon fill="#B4B4B4" points="45.813,45.682 18,45.682 18,18.318 23.267,18.318 23.267,41.003 45.813,41.003 			"/>
+		</g>
+		<rect x="18" y="18.318" fill="#B4B4B4" width="28" height="0.414"/>
+	</g>
+	<rect x="45.585" y="18.318" fill="#B4B4B4" width="0.415" height="27.363"/>
+</g>
+</svg>
