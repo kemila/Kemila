@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+<body>
+	<script>
+		const arrayProtoType = Array.prototype;
+		const arrayProtoTypeCopy = Object.create(arrayProtoType);
+
+		[
+			'push',
+			'pop',
+			'shift',
+			'unshift',
+			'splice',
+			'sort',
+			'reverse'
+		].forEach(item => {
+			const originalFn = arrayProtoType[item];
+			// 对复制下来的数组原型对象覆盖它的方法
+			Object.defineProperty(arrayProtoTypeCopy , item , {
+				value: function (){
+					console.log('我进入了数组方法' + item);
+					return originalFn.apply(this , arguments);
+				},
+			} )
+		});
+
+		let arr = [2,3,4];
+		arr.__proto__ = arrayProtoTypeCopy;
+		arr.push(5);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</script>
+</body>
+
+</html>
