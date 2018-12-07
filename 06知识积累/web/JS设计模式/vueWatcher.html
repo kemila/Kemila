@@ -8,6 +8,11 @@
 
 <body>
 	<script>
+		// https://blog.seosiwei.com/detail/22 博客地址
+		// https://www.cnblogs.com/libin-1/p/6893712.html 原理说明
+		// 总结：依赖收集最终在 watcher.newDeps 中push了闭包中传过来的dep对象，
+		// 在dep.subs中push了初始化Vue是简历的Watcher对象，这个对象的，this.getter = expOrFn,
+		// 传过来的expOrFn是后期数据更新页面渲染的核心步骤，需要沉下心来好好去理理。
 		/*----------------------------------------处理数组------------------------------------*/
 		const arrayProto = Array.prototype
 		const arrayMethods = Object.create(arrayProto);
@@ -93,7 +98,6 @@
 			addDep(dep) {
 				// 这里简单处理，在Vue中做了重复筛选，即依赖只收集一次，不重复收集依赖
 				this.newDeps.push(dep)
-				console.log('addDep:' , this);
 				dep.addSub(this)
 			}
 
@@ -227,7 +231,7 @@
 		let data = {
 			name: 'zane',
 			blog: 'https://blog.seosiwei.com/',
-			hobby: ['basketball', 'football'],
+			hobby: ['basketball', 'football','code'],
 			list: [{
 					name: 'zhangsan'
 				},
