@@ -13,6 +13,7 @@
 		// 总结：依赖收集最终在 watcher.newDeps 中push了闭包中传过来的dep对象，
 		// 在dep.subs中push了初始化Vue是简历的Watcher对象，这个对象的，this.getter = expOrFn,
 		// 传过来的expOrFn是后期数据更新页面渲染的核心步骤，需要沉下心来好好去理理。
+		// 订阅器dep  订阅者Watcher  监听器Observer， 解析器Compile
 		/*----------------------------------------处理数组------------------------------------*/
 		const arrayProto = Array.prototype
 		const arrayMethods = Object.create(arrayProto);
@@ -53,14 +54,18 @@
 			depend() {
 				//Dep.target 作用只有需要的才会收集依赖
 				if (Dep.target) {
+					// console.log("depend this" , this);
 					Dep.target.addDep(this)
 				}
 			}
 
 			// 调用依赖收集的Watcher更新
 			notify() {
-				const subs = this.subs.slice()
+				const subs = this.subs.slice();
+				console.log('notify' , subs);
 				for (let i = 0, l = subs.length; i < l; i++) {
+					console.log(i , subs[i].update);
+					
 					subs[i].update()
 				}
 			}
@@ -87,6 +92,7 @@
 			}
 
 			get() {
+				// console.log('调用了一次 Watcher  get');
 				//设置Dep.target值，用以依赖收集
 				pushTarget(this)
 				const vm = this.vm
@@ -96,6 +102,7 @@
 
 			//添加依赖
 			addDep(dep) {
+				console.log('dep:' , dep )
 				// 这里简单处理，在Vue中做了重复筛选，即依赖只收集一次，不重复收集依赖
 				this.newDeps.push(dep)
 				dep.addSub(this)
@@ -119,6 +126,7 @@
 		// 简单实现Observer，Observer负责数据的双向绑定，并把对象属性改为getter/setter
 		class Observer {
 			constructor(value) {
+				// console.log(value);
 				this.value = value
 				// 增加dep属性（处理数组时可以直接调用）
 				this.dep = new Dep()
@@ -161,6 +169,7 @@
 		}
 		// 把对象属性改为getter/setter，并收集依赖
 		function defineReactive(obj, key, val) {
+			console.log(obj , key , val);
 			const dep = new Dep()
 			//处理children
 			let childOb = observe(val)
@@ -171,8 +180,10 @@
 					console.log(`调用get获取值，值为${val}`)
 					const value = val
 					if (Dep.target) {
+						console.log(1111111 , dep , val);
 						dep.depend();
 						if (childOb) {
+							console.log(2222222 , childOb , val);
 							childOb.dep.depend()
 						}
 						//此处是对Array数据类型的依赖收集
@@ -219,6 +230,7 @@
 		function dependArray(value) {
 			for (let e, i = 0, l = value.length; i < l; i++) {
 				e = value[i]
+				// console.log(3 , e && e.__ob__);
 				e && e.__ob__ && e.__ob__.dep.depend()
 				if (Array.isArray(e)) {
 					//循环遍历chindren进行依赖收集
@@ -243,19 +255,22 @@
 
 		let getUpdates = (vm) => {
 			// 依赖收集就是 ??? 
-			console.log('默认调用一次，进行依赖收集')
+			// console.log('默认调用一次，进行依赖收集')
 		}
-		console.log('this' , this);
+		// console.log('this' , this);
 		// 创建watcher 观察this 这边是window 到vue就是具体的vue实例
 		let w  = new Watcher(this, getUpdates);
-
+		
 		observe(data);
+
 		//收集name依赖
-		data.name
+		// data.name
+
 		// console.log('Dep.target:' , Dep.target);
-		//收集hobby依赖
+		//收集hobby依赖 没有作重复校验 依赖会多次添加
 		data.hobby
-		// console.log('Dep.target:' , Dep.target);
+
+		console.log('Dep.target:' , Dep.target === w , w);
 		//都会打印这里会去执行Vue的diff相关方法，进而更新数据
 		// data.name = 'zhangshan'
 		// data.hobby.push('volleyball')
